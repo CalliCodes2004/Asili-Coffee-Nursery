@@ -1,0 +1,314 @@
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #1b1b1b;
+    background: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 7%;
+
+    background: #ffffff;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo span {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #0B5D1E;
+}
+
+.logo small {
+    font-size: 0.75rem;
+    color: #555555;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: #222222;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #0B5D1E;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 80vh;
+
+    display: flex;
+    align-items: center;
+
+    padding: 80px 7%;
+
+    background:
+        linear-gradient(
+            rgba(0, 60, 20, 0.75),
+            rgba(0, 60, 20, 0.75)
+        ),
+        url("https://images.unsplash.com/photo-1447933601403-0c6688de566e")
+        center/cover;
+}
+
+.hero-content {
+    max-width: 750px;
+    color: white;
+}
+
+.eyebrow {
+    color: #4CAF50;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero .eyebrow {
+    color: #ffffff;
+}
+
+.hero h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1.05;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    color: #4CAF50;
+}
+
+.hero-text {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin-bottom: 35px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+
+    padding: 13px 24px;
+
+    border-radius: 6px;
+
+    font-weight: 700;
+
+    transition: 0.3s;
+}
+
+.primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.primary:hover {
+    transform: translateY(-2px);
+}
+
+.secondary {
+    border: 2px solid white;
+    color: white;
+}
+
+.secondary:hover {
+    background: white;
+    color: #0B5D1E;
+}
+
+
+/* =========================
+   WHY ASILI
+========================= */
+
+.why-asili {
+    padding: 100px 7%;
+    text-align: center;
+}
+
+.why-asili h2,
+.products h2,
+.contact h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+}
+
+.features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 30px;
+
+    max-width: 1100px;
+
+    margin: auto;
+}
+
+.feature {
+    padding: 30px;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 12px;
+}
+
+.feature h3 {
+    margin-bottom: 15px;
+    color: #0B5D1E;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products {
+    padding: 100px 7%;
+
+    background: #f5f7f5;
+}
+
+.product-card {
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+.product-card h3 {
+    color: #0B5D1E;
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    padding: 100px 7%;
+    text-align: center;
+}
+
+.contact p {
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 30px;
+
+    text-align: center;
+
+    background: #0B5D1E;
+
+    color: white;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        min-height: 70vh;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}

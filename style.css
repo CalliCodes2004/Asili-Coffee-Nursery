@@ -33,7 +33,7 @@ a {
     justify-content: space-between;
     align-items: center;
 
-    padding: 20px 7%;
+    padding: 16px 7%;
 
     background: #ffffff;
 
@@ -51,13 +51,13 @@ a {
 }
 
 .logo span {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     font-weight: 800;
     color: #0B5D1E;
 }
 
 .logo small {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #555555;
 }
 
@@ -74,6 +74,21 @@ nav a {
 nav a:hover {
     color: #0B5D1E;
 }
+/* Navigation CTA */
+
+.nav-order-btn {
+    background: #0B5D1E;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.nav-order-btn:hover {
+    background: #4CAF50;
+    transform: translateY(-2px);
+}
 
 
 /* =========================
@@ -81,25 +96,31 @@ nav a:hover {
 ========================= */
 
 .hero {
-    min-height: 80vh;
+    min-height: 88vh;
 
     display: flex;
     align-items: center;
 
-    padding: 80px 7%;
+    padding: 100px 7%;
 
     background:
         linear-gradient(
-            rgba(0, 60, 20, 0.75),
-            rgba(0, 60, 20, 0.75)
+            90deg,
+            rgba(0, 45, 15, 0.88) 0%,
+            rgba(0, 55, 20, 0.68) 50%,
+            rgba(0, 30, 10, 0.35) 100%
         ),
         url("https://images.unsplash.com/photo-1447933601403-0c6688de566e")
         center/cover;
+
+    position: relative;
 }
 
 .hero-content {
-    max-width: 750px;
+    max-width: 780px;
     color: white;
+    position: relative;
+    z-index: 2;
 }
 
 .eyebrow {
@@ -111,22 +132,27 @@ nav a:hover {
 
 .hero .eyebrow {
     color: #ffffff;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
 }
 
 .hero h1 {
-    font-size: clamp(3rem, 7vw, 6rem);
-    line-height: 1.05;
-    margin-bottom: 25px;
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    line-height: 0.98;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
 }
-
 .hero h1 span {
     color: #4CAF50;
+    display: inline-block;
 }
 
 .hero-text {
-    font-size: 1.2rem;
-    max-width: 600px;
-    margin-bottom: 35px;
+    font-size: 1.15rem;
+    max-width: 620px;
+    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 
@@ -143,13 +169,13 @@ nav a:hover {
 .btn {
     display: inline-block;
 
-    padding: 13px 24px;
+    padding: 14px 26px;
 
-    border-radius: 6px;
+    border-radius: 8px;
 
     font-weight: 700;
 
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .primary {
@@ -158,7 +184,8 @@ nav a:hover {
 }
 
 .primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 .secondary {
@@ -169,6 +196,7 @@ nav a:hover {
 .secondary:hover {
     background: white;
     color: #0B5D1E;
+    transform: translateY(-3px);
 }
 
 
@@ -177,15 +205,17 @@ nav a:hover {
 ========================= */
 
 .why-asili {
-    padding: 100px 7%;
+    padding: 120px 7%;
     text-align: center;
+    background: #ffffff;
 }
 
 .why-asili h2,
 .products h2,
 .contact h2 {
-    font-size: 2.5rem;
-    margin-bottom: 50px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 60px;
 }
 
 .features {
@@ -202,16 +232,37 @@ nav a:hover {
 }
 
 .feature {
-    padding: 30px;
+    padding: 40px 30px;
 
-    border: 1px solid #eeeeee;
+    border: 1px solid #e5eae5;
 
-    border-radius: 12px;
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    transition: 0.3s ease;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+.feature:hover {
+    transform: translateY(-8px);
+
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+
+    border-color: #4CAF50;
 }
 
 .feature h3 {
     margin-bottom: 15px;
+
     color: #0B5D1E;
+
+    font-size: 1.35rem;
+}
+.feature p {
+    color: #666666;
+    max-width: 280px;
+    margin: auto;
 }
 
 
@@ -286,6 +337,19 @@ footer {
 ========================= */
 
 @media (max-width: 768px) {
+    .hero {
+    min-height: 78vh;
+    padding: 80px 7%;
+}
+
+.hero h1 {
+    font-size: clamp(2.8rem, 13vw, 4.5rem);
+    letter-spacing: -1px;
+}
+
+.hero-text {
+    font-size: 1rem;
+}
 
     .navbar {
         flex-direction: column;

@@ -78,3 +78,98 @@ orderButtons.forEach((button) => {
     });
 
 });
+// LIVE ORDER CALCULATOR
+
+const quantityInputs =
+    document.querySelectorAll(".quantity-input");
+
+quantityInputs.forEach((input) => {
+
+    input.addEventListener("input", () => {
+
+        const details =
+            input.closest(".product-details");
+
+        const orderButton =
+            details.querySelector(".order-btn");
+
+        const totalDisplay =
+            details.querySelector(".order-total");
+
+        const price =
+            Number(orderButton.dataset.price);
+
+        const quantity =
+            Number(input.value);
+
+        const total =
+            price * quantity;
+
+        if (quantity > 0) {
+
+            totalDisplay.textContent =
+                `KSh ${total.toLocaleString()}`;
+
+        } else {
+
+            totalDisplay.textContent =
+                "KSh 0";
+
+        }
+
+    });
+
+});
+
+// ================================
+// MOBILE NAVIGATION
+// ================================
+
+const menuToggle =
+    document.querySelector(".menu-toggle");
+
+const navLinks =
+    document.querySelector(".nav-links");
+
+if (menuToggle && navLinks) {
+
+    menuToggle.addEventListener("click", () => {
+
+        navLinks.classList.toggle("active");
+
+        if (navLinks.classList.contains("active")) {
+            menuToggle.textContent = "✕";
+            menuToggle.setAttribute(
+                "aria-label",
+                "Close navigation menu"
+            );
+        } else {
+            menuToggle.textContent = "☰";
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation menu"
+            );
+        }
+
+    });
+
+    // Close menu after clicking a navigation link
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+
+        link.addEventListener("click", () => {
+
+            navLinks.classList.remove("active");
+
+            menuToggle.textContent = "☰";
+
+            menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation menu"
+            );
+
+        });
+
+    });
+
+}

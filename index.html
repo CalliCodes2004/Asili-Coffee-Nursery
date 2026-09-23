@@ -13,23 +13,30 @@
 <body>
 
     <!-- Navigation -->
-    <header class="navbar">
+    <nav class="navbar">
 
-    <div class="logo">
-        <span>ASILI</span>
-        <small>Coffee Nursery</small>
-    </div>
+    <a href="#home" class="logo">
+        ASILI <span>Coffee Nursery</span>
+    </a>
 
-    <nav>
+    <div class="nav-links">
+
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#products">Seedlings</a>
         <a href="#contact">Contact</a>
-    </nav>
 
-    <a href="#products" class="nav-order-btn">Order Seedlings</a>
+        <a href="#products" class="nav-order-btn">
+            Order Seedlings
+        </a>
 
-</header>
+    </div>
+
+    <button class="menu-toggle" aria-label="Open navigation menu">
+        ☰
+    </button>
+
+</nav>
 
 
     <!-- Hero Section -->
@@ -127,6 +134,8 @@
                     ● Available — Bulk Orders Welcome
                 </span>
 
+                <span class="variety-label">Arabica Variety</span>
+
                 <h3>Batian</h3>
 
                 <p>
@@ -165,6 +174,11 @@
         placeholder="e.g. 1000"
     >
 
+    <div class="order-summary">
+    <span>Estimated total</span>
+    <strong class="order-total">KSh 0</strong>
+</div>
+
     <button
         class="btn primary order-btn"
         data-variety="Batian"
@@ -191,6 +205,8 @@
                 <span class="product-status">
                     ● Available — Bulk Orders Welcome
                 </span>
+
+                <span class="variety-label">Arabica Variety</span>
 
                 <h3>Ruiru 11</h3>
 
@@ -229,6 +245,11 @@
         placeholder="e.g. 1000"
     >
 
+    <div class="order-summary">
+    <span>Estimated total</span>
+    <strong class="order-total">KSh 0</strong>
+</div>
+
     <button
         class="btn primary order-btn"
         data-variety="Ruiru 11"
@@ -254,6 +275,8 @@
                 <span class="product-status">
                     ● Available — Bulk Orders Welcome
                 </span>
+
+                <span class="variety-label">Arabica Variety</span>
 
                 <h3>SL34</h3>
 
@@ -292,6 +315,11 @@
         placeholder="e.g. 1000"
     >
 
+    <div class="order-summary">
+    <span>Estimated total</span>
+    <strong class="order-total">KSh 0</strong>
+</div>
+
     <button
         class="btn primary order-btn"
         data-variety="SL34"
@@ -318,6 +346,8 @@
                 <span class="product-status">
                     ● Available — Bulk Orders Welcome
                 </span>
+
+                <span class="variety-label">Arabica Variety</span>
 
                 <h3>SL28</h3>
 
@@ -356,6 +386,11 @@
         placeholder="e.g. 1000"
     >
 
+    <div class="order-summary">
+    <span>Estimated total</span>
+    <strong class="order-total">KSh 0</strong>
+</div>
+
     <button
         class="btn primary order-btn"
         data-variety="SL28"
@@ -381,6 +416,8 @@
                 <span class="product-status">
                     ● Available — Bulk Orders Welcome
                 </span>
+
+                <span class="variety-label">Arabica Variety</span>
 
                 <h3>K7</h3>
 
@@ -419,6 +456,11 @@
         placeholder="e.g. 1000"
     >
 
+    <div class="order-summary">
+    <span>Estimated total</span>
+    <strong class="order-total">KSh 0</strong>
+</div>
+
     <button
         class="btn primary order-btn"
         data-variety="K7"
@@ -440,21 +482,96 @@
         <!-- Contact -->
         <section id="contact" class="contact">
 
-            <p class="eyebrow">GET IN TOUCH</p>
+    <div class="contact-heading">
+        <span class="eyebrow">GET IN TOUCH</span>
 
-            <h2>Ready to Plant?</h2>
+        <h2>
+            Ready to Grow<br>
+            <span>Better Coffee?</span>
+        </h2>
 
-            <p>
-                Contact Asili Coffee Nursery for seedling
-                availability and orders.
-            </p>
+        <p>
+            Whether you need a few seedlings or a large commercial order,
+            we're ready to help you plan your next coffee farm.
+        </p>
+    </div>
 
-            <a href="mailto:info@asilicoffeenursery.com"
-               class="btn primary">
-                Contact Asili
-            </a>
+    <div class="contact-grid">
 
-        </section>
+        <!-- Contact Person -->
+        <div class="contact-card">
+            <div class="contact-icon">👤</div>
+
+            <div>
+                <span>CONTACT PERSON</span>
+                <h3>James Wambugu</h3>
+                <p>Director, Asili Coffee Nursery Ltd</p>
+            </div>
+        </div>
+
+        <!-- WhatsApp -->
+        <a
+            href="https://wa.me/254745208905"
+            target="_blank"
+            class="contact-card contact-link"
+        >
+            <div class="contact-icon">💬</div>
+
+            <div>
+                <span>WHATSAPP</span>
+                <h3>0745 208 905</h3>
+                <p>Chat with us about your order</p>
+            </div>
+        </a>
+
+        <!-- Email -->
+        <a
+            href="mailto:asilicoffeenurseryltd@gmail.com"
+            class="contact-card contact-link"
+        >
+            <div class="contact-icon">✉️</div>
+
+            <div>
+                <span>EMAIL</span>
+                <h3>asilicoffeenurseryltd@gmail.com</h3>
+                <p>Send us your enquiry or bulk order request</p>
+            </div>
+        </a>
+
+        <!-- Bulk Orders -->
+        <div class="contact-card">
+            <div class="contact-icon">🌱</div>
+
+            <div>
+                <span>BULK ORDERS</span>
+                <h3>Hundreds of Thousands</h3>
+                <p>Bulk seedling orders are welcome.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="contact-cta">
+
+        <div>
+            <span class="eyebrow">START YOUR ORDER</span>
+
+            <h3>
+                Let's grow your coffee farm.
+            </h3>
+        </div>
+
+        <a
+            href="https://wa.me/254745208905?text=Hello%20Asili%20Coffee%20Nursery%2C%20I%20would%20like%20to%20make%20an%20enquiry."
+            target="_blank"
+            class="btn primary"
+        >
+            Order on WhatsApp →
+        </a>
+
+    </div>
+
+</section>
 
     </main>
 

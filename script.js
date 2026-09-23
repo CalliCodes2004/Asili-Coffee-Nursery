@@ -35,25 +35,22 @@ productCards.forEach((card) => {
 const orderButtons = document.querySelectorAll(".order-btn");
 
 orderButtons.forEach((button) => {
-
     button.addEventListener("click", () => {
 
         const variety = button.dataset.variety;
         const price = Number(button.dataset.price);
 
         const details = button.closest(".product-details");
-
-        const quantityInput =
-            details.querySelector(".quantity-input");
+        const quantityInput = details.querySelector(".quantity-input");
 
         const quantity = Number(quantityInput.value);
 
         if (!quantity || quantity < 1) {
-
-            alert("Please enter the number of seedlings you would like to order.");
+            alert(
+                "Please enter the number of seedlings you would like to order."
+            );
 
             quantityInput.focus();
-
             return;
         }
 
@@ -61,12 +58,13 @@ orderButtons.forEach((button) => {
 
         const message =
             `Hello Asili Coffee Nursery,%0A%0A` +
-            `I would like to order:%0A` +
-            `Variety: ${variety}%0A` +
-            `Quantity: ${quantity.toLocaleString()} seedlings%0A` +
-            `Price: KSh ${price} per seedling%0A` +
-            `Estimated order value: KSh ${total.toLocaleString()}%0A%0A` +
-            `Please confirm availability and ordering details.`;
+            `I would like to place a seedling order.%0A%0A` +
+            `🌱 Variety: ${variety}%0A` +
+            `📦 Quantity: ${quantity.toLocaleString()} seedlings%0A` +
+            `💰 Price: KSh ${price.toLocaleString()} per seedling%0A` +
+            `🧾 Estimated Value: KSh ${total.toLocaleString()}%0A%0A` +
+            `Please confirm availability and delivery/pickup arrangements.%0A%0A` +
+            `Thank you.`;
 
         const whatsappNumber = "254745208905";
 
@@ -74,9 +72,7 @@ orderButtons.forEach((button) => {
             `https://wa.me/${whatsappNumber}?text=${message}`;
 
         window.open(whatsappURL, "_blank");
-
     });
-
 });
 // LIVE ORDER CALCULATOR
 

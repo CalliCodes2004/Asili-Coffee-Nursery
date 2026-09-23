@@ -132,6 +132,10 @@ a {
    HERO
 ========================= */
 
+/* =========================
+   HERO SECTION
+========================= */
+
 .hero {
     min-height: 88vh;
 
@@ -143,53 +147,226 @@ a {
     background:
         linear-gradient(
             90deg,
-            rgba(0, 45, 15, 0.88) 0%,
-            rgba(0, 55, 20, 0.68) 50%,
-            rgba(0, 30, 10, 0.35) 100%
+            rgba(0, 45, 15, 0.90) 0%,
+            rgba(0, 55, 20, 0.72) 48%,
+            rgba(0, 30, 10, 0.38) 100%
         ),
-        url("https://images.unsplash.com/photo-1447933601403-0c6688de566e")
+        url("hero-coffee-nursery.png")
         center/cover;
+
+    background-position: center;
+    background-repeat: no-repeat;
 
     position: relative;
 }
 
 .hero-content {
     max-width: 780px;
+
     color: white;
+
     position: relative;
     z-index: 2;
 }
 
-.eyebrow {
-    color: #4CAF50;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
-
 .hero .eyebrow {
     color: #ffffff;
+
     font-size: 0.85rem;
+    font-weight: 800;
+
     letter-spacing: 3px;
+
     margin-bottom: 20px;
 }
 
 .hero h1 {
-    font-size: clamp(3.2rem, 7vw, 6.5rem);
-    line-height: 0.98;
-    letter-spacing: -2px;
     margin-bottom: 30px;
+
+    color: white;
+
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+
+    font-weight: 900;
+
+    line-height: 0.98;
+
+    letter-spacing: -2px;
 }
+
 .hero h1 span {
     color: #4CAF50;
+
     display: inline-block;
 }
 
 .hero-text {
-    font-size: 1.15rem;
     max-width: 620px;
+
     margin-bottom: 40px;
+
     color: rgba(255, 255, 255, 0.9);
+
+    font-size: 1.15rem;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   HERO BUTTONS
+========================= */
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 45px;
+}
+
+.hero-buttons .btn {
+    min-width: 155px;
+
+    text-align: center;
+}
+
+
+/* =========================
+   HERO STATS
+========================= */
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+
+    gap: 40px;
+}
+
+.hero-stat {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.hero-stat strong {
+    color: white;
+
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.hero-stat span {
+    color: rgba(255, 255, 255, 0.7);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================
+   HERO RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 82vh;
+
+        padding: 80px 6%;
+
+        background-position: center;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: clamp(3rem, 12vw, 4.5rem);
+
+        letter-spacing: -2px;
+    }
+
+    .hero-text {
+        font-size: 1rem;
+
+        max-width: 550px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        max-width: 320px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .hero-stats {
+        gap: 25px;
+
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .hero {
+        min-height: 85vh;
+
+        padding: 70px 6%;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+
+        line-height: 1;
+    }
+
+    .hero .eyebrow {
+        font-size: 0.72rem;
+
+        letter-spacing: 2px;
+    }
+
+    .hero-text {
+        font-size: 0.95rem;
+
+        line-height: 1.65;
+    }
+
+    .hero-buttons {
+        max-width: 100%;
+    }
+
+    .hero-stats {
+        width: 100%;
+
+        justify-content: space-between;
+
+        gap: 15px;
+    }
+
+    .hero-stat {
+        text-align: center;
+    }
+
+    .hero-stat strong {
+        font-size: 1rem;
+    }
+
+    .hero-stat span {
+        font-size: 0.65rem;
+    }
 }
 
 

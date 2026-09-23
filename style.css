@@ -5,25 +5,138 @@ html {
     scroll-behavior: smooth;
 }
 
+/* =========================
+   GLOBAL STYLES
+========================= */
+
 * {
     margin: 0;
     padding: 0;
+
     box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
+
+    scroll-padding-top: 85px;
 }
 
 body {
     font-family: Arial, sans-serif;
+
     color: #1b1b1b;
+
     background: #ffffff;
+
     line-height: 1.6;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-weight: 800;
+}
+
+p {
+    margin-bottom: 0;
 }
 
 a {
     text-decoration: none;
+
+    color: inherit;
+}
+
+
+/* =========================
+   BUTTON FOUNDATION
+========================= */
+
+.btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding: 12px 22px;
+
+    border-radius: 8px;
+
+    font-size: 0.9rem;
+
+    font-weight: 800;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* PRIMARY BUTTON */
+
+.btn.primary {
+    background: #0B5D1E;
+
+    color: #ffffff;
+
+    border: 1px solid #0B5D1E;
+}
+
+.btn.primary:hover {
+    background: #4CAF50;
+
+    border-color: #4CAF50;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(18, 61, 37, 0.15);
+}
+
+
+/* SECONDARY BUTTON */
+
+.btn.secondary {
+    background: transparent;
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.btn.secondary:hover {
+    background: #ffffff;
+
+    color: #0B5D1E;
+
+    border-color: #ffffff;
+
+    transform: translateY(-2px);
 }
 
 
@@ -1727,6 +1840,411 @@ footer {
         align-items: flex-start;
 
         gap: 12px;
+    }
+
+}
+
+/* =========================
+   STEP 17B
+   TYPOGRAPHY & TRANSITIONS
+========================= */
+
+
+/* =========================
+   SHARED SECTION EYEBROWS
+========================= */
+
+.why-asili > .eyebrow,
+.products > .eyebrow,
+.contact-heading > .eyebrow {
+    display: block;
+
+    font-size: 0.78rem;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    line-height: 1.2;
+}
+
+
+/* =========================
+   SHARED BODY TEXT
+========================= */
+
+.why-asili p,
+.products p,
+.contact p {
+    line-height: 1.7;
+}
+
+
+/* =========================
+   SECTION TRANSITIONS
+========================= */
+
+/* About → Products */
+
+.why-asili {
+    position: relative;
+}
+
+.why-asili::after {
+    content: "";
+
+    display: block;
+
+    width: 70px;
+    height: 3px;
+
+    margin: 75px auto 0;
+
+    background: #4CAF50;
+
+    border-radius: 50px;
+}
+
+
+/* Products → Contact */
+
+.products {
+    position: relative;
+}
+
+.products::after {
+    content: "";
+
+    display: block;
+
+    width: 70px;
+    height: 3px;
+
+    margin: 75px auto 0;
+
+    background: #4CAF50;
+
+    border-radius: 50px;
+}
+
+
+/* =========================
+   SECTION RHYTHM
+========================= */
+
+.why-asili,
+.products,
+.contact {
+    scroll-margin-top: 85px;
+}
+
+
+/* =========================
+   MOBILE REFINEMENT
+========================= */
+
+@media (max-width: 768px) {
+
+    .why-asili::after,
+    .products::after {
+        margin-top: 55px;
+    }
+
+    .why-asili p,
+    .products p,
+    .contact p {
+        line-height: 1.65;
+    }
+
+}
+
+/* =========================
+   STEP 17C
+   MOBILE POLISH
+========================= */
+
+@media (max-width: 768px) {
+
+    /* =========================
+       GLOBAL MOBILE SPACING
+    ========================= */
+
+    .btn {
+        min-height: 50px;
+
+        padding: 13px 20px;
+
+        font-size: 0.9rem;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+        min-height: 82vh;
+
+        padding-top: 75px;
+        padding-bottom: 75px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero h1 {
+        max-width: 650px;
+
+        margin-bottom: 24px;
+    }
+
+    .hero-text {
+        max-width: 560px;
+
+        margin-bottom: 32px;
+    }
+
+    .hero-buttons {
+        width: 100%;
+
+        max-width: 360px;
+
+        gap: 12px;
+
+        margin-bottom: 40px;
+    }
+
+    .hero-stats {
+        width: 100%;
+
+        max-width: 500px;
+    }
+
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .why-asili {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .feature {
+        width: 100%;
+    }
+
+
+    /* =========================
+       PRODUCTS
+    ========================= */
+
+    .products {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .product-card {
+        width: 100%;
+    }
+
+    .product-content {
+        padding: 24px;
+    }
+
+    .product-details {
+        width: 100%;
+    }
+
+    .quantity-input,
+    .order-btn,
+    .expand-btn {
+        min-height: 48px;
+    }
+
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    .contact {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .contact-card {
+        width: 100%;
+    }
+
+    .contact-card h3 {
+        overflow-wrap: anywhere;
+    }
+
+    .contact-cta {
+        width: 100%;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .footer-brand {
+        width: 100%;
+    }
+
+    .footer-column {
+        width: 100%;
+    }
+
+    .footer-bottom {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 480px) {
+
+    /* NAVBAR */
+
+    .navbar {
+        padding: 15px 6%;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .menu-toggle {
+        font-size: 1.7rem;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 86vh;
+
+        padding-top: 65px;
+        padding-bottom: 65px;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+
+        line-height: 1;
+
+        letter-spacing: -1.5px;
+    }
+
+    .hero-text {
+        font-size: 0.95rem;
+
+        line-height: 1.65;
+    }
+
+    .hero-buttons {
+        max-width: 100%;
+    }
+
+    .hero-stats {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 12px;
+    }
+
+    .hero-stat {
+        min-width: 0;
+    }
+
+    .hero-stat strong {
+        font-size: 0.95rem;
+    }
+
+    .hero-stat span {
+        font-size: 0.62rem;
+
+        line-height: 1.3;
+    }
+
+
+    /* ABOUT */
+
+    .why-asili h2 {
+        max-width: 350px;
+    }
+
+    .feature {
+        min-height: 190px;
+
+        padding: 32px 20px;
+    }
+
+
+    /* PRODUCTS */
+
+    .product-image {
+        height: 230px;
+    }
+
+    .product-content {
+        padding: 22px;
+    }
+
+    .product-card h3 {
+        font-size: 1.5rem;
+    }
+
+
+    /* CONTACT */
+
+    .contact-heading h2 {
+        font-size: 2.15rem;
+    }
+
+    .contact-card {
+        padding: 24px 20px;
+    }
+
+    .contact-card h3 {
+        font-size: 1rem;
+    }
+
+    .contact-cta {
+        padding: 25px 22px;
+    }
+
+    .contact-cta h3 {
+        font-size: 1.4rem;
+    }
+
+
+    /* FOOTER */
+
+    .footer {
+        padding-top: 60px;
+    }
+
+    .footer-logo {
+        font-size: 1.3rem;
+    }
+
+    .footer-bottom {
+        align-items: flex-start;
     }
 
 }

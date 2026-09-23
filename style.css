@@ -2248,3 +2248,461 @@ footer {
     }
 
 }
+
+/* =========================
+   STEP 18B
+   ORDER / ENQUIRY FORM
+========================= */
+
+.order-form-section {
+    max-width: 1100px;
+    margin: 70px auto 0;
+    padding: 55px;
+    background: #ffffff;
+    border-radius: 20px;
+    color: #123d25;
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.12);
+}
+
+.order-form-heading {
+    max-width: 700px;
+    margin-bottom: 40px;
+}
+
+.order-form-heading .eyebrow {
+    display: block;
+    margin-bottom: 12px;
+    color: #4CAF50;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+
+.order-form-heading h3 {
+    margin-bottom: 12px;
+    color: #123d25;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.1;
+}
+
+.order-form-heading p {
+    color: #68736b;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    color: #123d25;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d7e2d7;
+    border-radius: 9px;
+    background: #f9fbf9;
+    color: #123d25;
+    font-family: inherit;
+    font-size: 0.92rem;
+    outline: none;
+    transition:
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9aa49c;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4CAF50;
+    background: #ffffff;
+    box-shadow:
+        0 0 0 3px rgba(76, 175, 80, 0.12);
+}
+
+.form-group textarea {
+    min-height: 130px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.order-form-btn {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 5px;
+    padding: 14px 22px;
+    border: 1px solid #0B5D1E;
+    border-radius: 9px;
+    background: #0B5D1E;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.order-form-btn:hover {
+    background: #4CAF50;
+    border-color: #4CAF50;
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 25px rgba(18, 61, 37, 0.16);
+}
+
+.order-form-btn:active {
+    transform: translateY(0);
+}
+
+
+/* =========================
+   ORDER FORM RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .order-form-section {
+        margin-top: 50px;
+        padding: 35px 25px;
+        border-radius: 16px;
+    }
+
+    .order-form-heading {
+        margin-bottom: 30px;
+    }
+
+    .order-form-heading h3 {
+        font-size: 2.2rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .order-form {
+        gap: 20px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        min-height: 50px;
+    }
+
+    .form-group textarea {
+        min-height: 140px;
+    }
+
+    .order-form-btn {
+        min-height: 54px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .order-form-section {
+        margin-top: 40px;
+        padding: 30px 20px;
+    }
+
+    .order-form-heading h3 {
+        font-size: 2rem;
+    }
+
+    .order-form-heading p {
+        font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 0.9rem;
+    }
+
+}
+
+/* =========================
+   STEP 18C
+   NURSERY LOCATION
+========================= */
+
+.nursery-location {
+    max-width: 1100px;
+    margin: 70px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    background: #082f16;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.15);
+}
+
+.location-content {
+    padding: 55px;
+}
+
+.location-content .eyebrow {
+    display: block;
+    margin-bottom: 14px;
+    color: #8ee28f;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+
+.location-content h3 {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.1;
+}
+
+.location-content > p {
+    max-width: 500px;
+    margin-bottom: 35px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.location-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.location-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.location-detail strong {
+    color: #8ee28f;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.location-detail span {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+.location-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 1px solid #8ee28f;
+    border-radius: 8px;
+    background: transparent;
+    color: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.location-btn:hover {
+    background: #8ee28f;
+    color: #082f16;
+    transform: translateY(-2px);
+}
+
+
+/* LOCATION VISUAL */
+
+.location-visual {
+    min-height: 100%;
+    background:
+        linear-gradient(
+            135deg,
+            #123d25 0%,
+            #0B5D1E 100%
+        );
+}
+
+.location-placeholder {
+    height: 100%;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.location-pin {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    border: 2px solid #8ee28f;
+    border-radius: 50%;
+    color: #8ee28f;
+    font-size: 1.2rem;
+}
+
+.location-placeholder h4 {
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 1.25rem;
+}
+
+.location-placeholder p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+}
+
+
+/* =========================
+   LOCATION RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .nursery-location {
+        margin-top: 50px;
+        grid-template-columns: 1fr;
+        border-radius: 16px;
+    }
+
+    .location-content {
+        padding: 35px 25px;
+    }
+
+    .location-content h3 {
+        font-size: 2.2rem;
+    }
+
+    .location-visual {
+        min-height: 300px;
+    }
+
+    .location-placeholder {
+        min-height: 300px;
+        padding: 35px 25px;
+    }
+
+    .location-btn {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .nursery-location {
+        margin-top: 40px;
+    }
+
+    .location-content {
+        padding: 30px 20px;
+    }
+
+    .location-content h3 {
+        font-size: 2rem;
+    }
+
+    .location-content > p {
+        font-size: 0.9rem;
+    }
+
+    .location-placeholder {
+        min-height: 260px;
+    }
+
+}
+
+/* =========================
+   STEP 18D
+   GOOGLE MAP
+========================= */
+
+.location-visual {
+    min-height: 420px;
+    overflow: hidden;
+}
+
+.location-visual iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border: 0;
+}
+
+@media (max-width: 768px) {
+
+    .location-visual {
+        min-height: 300px;
+    }
+
+    .location-visual iframe {
+        min-height: 300px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .location-visual {
+        min-height: 260px;
+    }
+
+    .location-visual iframe {
+        min-height: 260px;
+    }
+
+}

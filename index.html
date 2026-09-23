@@ -580,27 +580,346 @@
 
     </div>
 
-    <div class="contact-cta">
+    <!-- Order Form -->
+    <div class="order-form-section">
 
-        <div>
-            <span class="eyebrow">START YOUR ORDER</span>
+        <div class="order-form-heading">
 
-            <h3>
-                Let's grow your coffee farm.
-            </h3>
+            <span class="eyebrow">ORDER / ENQUIRY</span>
+
+            <h3>Tell Us What You Need</h3>
+
+            <p>
+                Send us your requirements and we'll get back to you
+                with availability and ordering details.
+            </p>
+
         </div>
 
-        <a
-            href="https://wa.me/254745208905?text=Hello%20Asili%20Coffee%20Nursery%2C%20I%20would%20like%20to%20make%20an%20enquiry."
-            target="_blank"
-            class="btn primary"
-        >
-            Order on WhatsApp →
-        </a>
+
+
+        <form id="orderForm" class="order-form">
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="customerName">
+                        Your Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        name="customerName"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="customerPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="customerPhone"
+                        name="customerPhone"
+                        placeholder="e.g. 0745 208 905"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="customerVariety">
+                        Coffee Variety
+                    </label>
+
+                    <select
+                        id="customerVariety"
+                        name="customerVariety"
+                        required
+                    >
+
+                        <option value="">
+                            Select a variety
+                        </option>
+
+                        <option value="Batian">
+                            Batian — KSh 60
+                        </option>
+
+                        <option value="Ruiru 11">
+                            Ruiru 11 — KSh 80
+                        </option>
+
+                        <option value="SL34">
+                            SL34 — KSh 55
+                        </option>
+
+                        <option value="SL28">
+                            SL28 — KSh 55
+                        </option>
+
+                        <option value="K7">
+                            K7 — KSh 50
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="customerQuantity">
+                        Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="customerQuantity"
+                        name="customerQuantity"
+                        min="1"
+                        placeholder="Number of seedlings"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="customerLocation">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="customerLocation"
+                        name="customerLocation"
+                        placeholder="Town / County"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="orderMethod">
+                        Order Method
+                    </label>
+
+                    <select
+                        id="orderMethod"
+                        name="orderMethod"
+                        required
+                    >
+
+                        <option value="">
+                            Select an option
+                        </option>
+
+                        <option value="Delivery">
+                            Delivery
+                        </option>
+
+                        <option value="Pickup">
+                            Pickup from nursery
+                        </option>
+
+                        <option value="Not sure yet">
+                            Not sure yet
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="customerMessage">
+                    Additional Requirements
+                </label>
+
+                <textarea
+                    id="customerMessage"
+                    name="customerMessage"
+                    rows="5"
+                    placeholder="Tell us anything else we should know..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="order-form-btn"
+            >
+                Send Enquiry on WhatsApp →
+            </button>
+
+        </form>
 
     </div>
 
-</section>
+        <!-- Nursery Location -->
+    <div class="nursery-location">
+
+        <div class="location-content">
+
+            <span class="eyebrow">
+                VISIT ASILI
+            </span>
+
+            <h3>
+                Find Our Nursery
+            </h3>
+
+            <p>
+                Visit Asili Coffee Nursery to collect your seedlings,
+                discuss your coffee farming plans, or arrange a bulk order.
+            </p>
+
+
+            <div class="location-details">
+
+                <div class="location-detail">
+
+                    <strong>Location</strong>
+
+                    <span>
+                        Asili Coffee Nursery Ltd
+                    </span>
+
+                </div>
+
+
+                <div class="location-detail">
+
+                    <strong>Contact</strong>
+
+                    <span>
+                        0745 208 905
+                    </span>
+                    <span>
+                       or
+                    </span>
+                    <span>
+                        0707 722 586
+                    </span>
+
+                </div>
+
+
+                <div class="location-detail">
+
+                    <strong>Business</strong>
+
+                    <span>
+                        Coffee Seedlings &amp; Farm Supply
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <a
+    href="https://www.google.com/maps/dir/?api=1&destination=0.366732,36.283859"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="location-btn"
+    id="mapButton"
+>
+    Get Directions →
+</a>
+
+        </div>
+
+
+        <div class="location-visual">
+
+    <iframe
+        src="https://www.google.com/maps?q=0.366732,36.283859&z=15&output=embed"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Asili Coffee Nursery location"
+    ></iframe>
+
+</div>
+
+    </div>
+
+    <!-- Nursery Gallery -->
+<div class="nursery-gallery">
+
+    <div class="gallery-heading">
+
+        <span class="eyebrow">
+            OUR NURSERY
+        </span>
+
+        <h3>
+            See Asili in Action
+        </h3>
+
+        <p>
+            A closer look at our coffee seedlings, nursery operations,
+            and the work behind quality planting material.
+        </p>
+
+    </div>
+
+    <div class="gallery-grid">
+
+        <div class="gallery-item gallery-large">
+            <img
+                src="nrsery-1.jpg"
+                alt="Coffee seedlings at Asili Coffee Nursery"
+            >
+        </div>
+
+        <div class="gallery-item">
+            <img
+                src="nursery-2.jpg"
+                alt="Coffee seedlings growing in the nursery"
+            >
+        </div>
+
+        <div class="gallery-item">
+            <img
+                src="nursery-3.jpg"
+                alt="Asili Coffee Nursery operations"
+            >
+        </div>
+
+    </div>
+
+</div>
 
     </main>
 

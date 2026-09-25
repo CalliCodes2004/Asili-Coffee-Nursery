@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard | Asili Coffee Nursery</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7f5;
+            color: #1b1b1b;
+        }
+
+        /* ================================
+           HEADER
+        ================================ */
+
+        .admin-header {
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: #0B5D1E;
+            color: #ffffff;
+        }
+
+        .admin-logo h1 {
+            font-size: 1.5rem;
+        }
+
+        .admin-logo span {
+            font-weight: normal;
+            opacity: 0.85;
+        }
+
+        .logout-btn {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            background: transparent;
+            color: #ffffff;
+
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #ffffff;
+            color: #0B5D1E;
+        }
+
+
+        /* ================================
+           MAIN
+        ================================ */
+
+        .dashboard {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 40px auto;
+        }
+
+        .welcome {
+            margin-bottom: 30px;
+        }
+
+        .welcome h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #666;
+        }
+
+
+        /* ================================
+           DASHBOARD CARDS
+        ================================ */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: #ffffff;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .dashboard-card h3 {
+            color: #0B5D1E;
+
+            margin-bottom: 10px;
+
+            font-size: 1.1rem;
+        }
+
+        .dashboard-card p {
+            color: #666;
+
+            font-size: 0.9rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================================
+           QUICK ACTIONS
+        ================================ */
+
+        .section-title {
+            margin-top: 45px;
+            margin-bottom: 20px;
+        }
+
+        .quick-actions {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .action-card {
+            background: #ffffff;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            text-decoration: none;
+
+            color: #1b1b1b;
+
+            border: 1px solid #e5e5e5;
+
+            transition: 0.2s;
+        }
+
+        .action-card:hover {
+            border-color: #0B5D1E;
+
+            transform: translateY(-2px);
+        }
+
+        .action-card h3 {
+            color: #0B5D1E;
+
+            margin-bottom: 8px;
+        }
+
+        .action-card p {
+            color: #666;
+
+            font-size: 0.9rem;
+        }
+
+
+        /* ================================
+           RESPONSIVE
+        ================================ */
+
+        @media (max-width: 800px) {
+
+            .dashboard-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .admin-header {
+                padding: 0 5%;
+            }
+
+            .admin-logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .logout-btn {
+                padding: 8px 12px;
+            }
+
+            .dashboard {
+                width: 92%;
+            }
+
+            .dashboard-grid {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .welcome h2 {
+                font-size: 1.6rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         ADMIN HEADER
+    ================================= -->
+
+    <header class="admin-header">
+
+        <div class="admin-logo">
+
+            <h1>
+                ASILI
+                <span>Coffee Nursery</span>
+            </h1>
+
+        </div>
+
+
+        <button
+            id="logoutButton"
+            class="logout-btn"
+        >
+            Logout
+        </button>
+
+    </header>
+
+
+
+    <!-- ================================
+         DASHBOARD
+    ================================= -->
+
+    <main class="dashboard">
+
+
+        <section class="welcome">
+
+            <h2>
+                Admin Dashboard
+            </h2>
+
+            <p>
+                Manage your Asili Coffee Nursery operations
+                from one place.
+            </p>
+
+        </section>
+
+
+
+        <!-- ================================
+             SUMMARY CARDS
+        ================================= -->
+
+        <section class="dashboard-grid">
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Products
+                </h3>
+
+                <p>
+                    Manage coffee seedling varieties,
+                    prices and availability.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Inventory
+                </h3>
+
+                <p>
+                    Track available, reserved,
+                    sold and production stock.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Orders
+                </h3>
+
+                <p>
+                    View and manage customer
+                    seedling orders.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Customers
+                </h3>
+
+                <p>
+                    Manage customer information
+                    and order history.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             QUICK ACTIONS
+        ================================= -->
+
+        <h2 class="section-title">
+            Quick Actions
+        </h2>
+
+
+        <section class="quick-actions">
+
+
+            <a
+                href="#"
+                class="action-card"
+            >
+
+                <h3>
+                    Products
+                </h3>
+
+                <p>
+                    Manage seedling varieties and prices.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="action-card"
+            >
+
+                <h3>
+                    Inventory
+                </h3>
+
+                <p>
+                    Update and monitor nursery stock.
+                </p>
+
+            </a>
+
+
+            <a
+                href="#"
+                class="action-card"
+            >
+
+                <h3>
+                    Orders
+                </h3>
+
+                <p>
+                    View incoming customer orders.
+                </p>
+
+            </a>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         FIREBASE
+    ================================= -->
+
+    <script
+        type="module"
+        src="../firebase-config.js"
+    ></script>
+
+    <script
+        type="module"
+        src="dashboard.js"
+    ></script>
+
+
+</body>
+
+</html>

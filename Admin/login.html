@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Login | Asili Coffee Nursery</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(11, 93, 30, 0.92),
+                    rgba(11, 93, 30, 0.92)
+                );
+
+            padding: 20px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+
+            background: #ffffff;
+
+            padding: 40px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #0B5D1E;
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 14px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            font-size: 1rem;
+
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #0B5D1E;
+            box-shadow:
+                0 0 0 3px rgba(11, 93, 30, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #0B5D1E;
+            color: #ffffff;
+
+            font-size: 1rem;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background: #084716;
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            display: none;
+
+            margin-bottom: 18px;
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #fdecec;
+            color: #b42318;
+
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: block;
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #0B5D1E;
+
+            text-decoration: none;
+
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">
+
+            <h1>ASILI</h1>
+
+            <p>Coffee Nursery</p>
+
+        </div>
+
+
+        <h2>Admin Login</h2>
+
+
+        <div
+            id="errorMessage"
+            class="error-message"
+        ></div>
+
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter admin email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-btn"
+                id="loginButton"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+        <a
+            href="../index.html"
+            class="back-link"
+        >
+            ← Back to Asili Coffee Nursery
+        </a>
+
+    </div>
+
+
+    <!-- Firebase -->
+
+    <script
+    type="module"
+    src="../firebase-config.js"
+></script>
+
+<script
+    type="module"
+    src="login.js"
+></script>
+
+</body>
+
+</html>

@@ -1,3 +1,6 @@
+import {
+    saveOrder
+} from "./order-service.js";
 // ================================
 // PRODUCT CARD EXPANSION
 // ================================
@@ -244,7 +247,7 @@ const orderForm =
 
 if (orderForm) {
 
-    orderForm.addEventListener("submit", (event) => {
+    orderForm.addEventListener("submit", async (event) => {
 
         event.preventDefault();
 
@@ -359,7 +362,46 @@ if (orderForm) {
             "254745208905";
 
 
-        // Encode message safely
+        // Save order to Firestore
+
+try {
+
+    await saveOrder({
+
+        customerName: name,
+
+        phone: phone,
+
+        variety: variety,
+
+        quantity: quantity,
+
+        price: price,
+
+        total: total,
+
+        location: location,
+
+        orderMethod: orderMethod,
+
+        additionalMessage: additionalMessage
+
+    });
+
+} catch (error) {
+
+    console.error(
+        "Unable to save order to Firestore:",
+        error
+    );
+
+    alert(
+        "Your WhatsApp enquiry will still open, but the order could not be saved to our system."
+    );
+
+}
+
+            // Encode message safely
         const whatsappURL =
             `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 

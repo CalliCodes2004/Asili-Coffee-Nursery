@@ -255,6 +255,291 @@
 
         }
 
+        /* ================================
+   ORDER DETAILS MODAL
+================================ */
+
+.order-details-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.order-details-modal[hidden] {
+    display: none;
+}
+
+.order-details-card {
+    width: min(700px, 100%);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.order-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 24px 28px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.order-details-label {
+    margin: 0 0 4px;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    color: #4CAF50;
+}
+
+.order-details-header h2 {
+    margin: 0;
+
+    color: #0B5D1E;
+
+    font-size: 1.5rem;
+}
+
+.close-order-details {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f3f4f6;
+    color: #333;
+
+    font-size: 1.6rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.close-order-details:hover {
+    background: #e5e7eb;
+}
+
+.order-details-content {
+    padding: 28px;
+}
+
+.order-detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.order-detail-grid > div {
+    padding: 18px;
+
+    background: #f8faf8;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+}
+
+.order-detail-grid span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    color: #6b7280;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.04em;
+}
+
+.order-detail-grid strong {
+    display: block;
+
+    color: #1f2937;
+
+    font-size: 1rem;
+}
+
+
+/* ================================
+   ORDER VIEW BUTTON
+================================ */
+
+.view-order-button {
+    padding: 7px 14px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #0B5D1E;
+    color: #ffffff;
+
+    font-size: 0.8rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.view-order-button:hover {
+    background: #4CAF50;
+}
+
+
+/* ================================
+   STATUS SELECT
+================================ */
+
+.status-select {
+    padding: 7px 10px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #333;
+
+    font-size: 0.8rem;
+
+    cursor: pointer;
+}
+
+.status-select:focus,
+.view-order-button:focus,
+.close-order-details:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+
+/* ================================
+   MODAL MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+    .order-details-modal {
+        padding: 14px;
+    }
+
+    .order-details-header {
+        padding: 20px;
+    }
+
+    .order-details-content {
+        padding: 20px;
+    }
+
+    .order-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.order-detail-message {
+    grid-column: 1 / -1;
+}
+
+.order-detail-message strong {
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.order-detail-actions {
+    grid-column: 1 / -1;
+
+    display: flex;
+    gap: 12px;
+
+    margin-top: 6px;
+}
+
+.call-order-button {
+    padding: 10px 16px;
+
+    border: 1px solid #0B5D1E;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #0B5D1E;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.call-order-button:hover {
+    background: #0B5D1E;
+    color: #ffffff;
+}
+
+.whatsapp-order-button {
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #4CAF50;
+    color: #ffffff;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.whatsapp-order-button:hover {
+    background: #0B5D1E;
+}
+
+@media (max-width: 600px) {
+
+    .order-detail-actions {
+        flex-direction: column;
+    }
+
+    .whatsapp-order-button,
+    .call-order-button {
+        width: 100%;
+    }
+
+}
+
     </style>
 
 </head>
@@ -413,7 +698,15 @@
                         </th>
 
                         <th>
+                            Date
+                        </th>
+
+                        <th>
                             Status
+                        </th>
+
+                        <th>
+                            Action
                         </th>
 
                     </tr>
@@ -426,7 +719,7 @@
                     <tr>
 
                         <td
-                            colspan="8"
+                            colspan="10"
                             class="empty-message"
                         >
                             Loading orders...
@@ -460,6 +753,47 @@
         src="orders.js"
     ></script>
 
+<!-- ================================
+     ORDER DETAILS MODAL
+================================ -->
+
+<div
+    id="orderDetailsModal"
+    class="order-details-modal"
+    hidden
+>
+
+    <div class="order-details-card">
+
+        <div class="order-details-header">
+
+            <div>
+                <p class="order-details-label">
+                    ORDER DETAILS
+                </p>
+
+                <h2>Customer Order</h2>
+            </div>
+
+            <button
+                id="closeOrderDetails"
+                class="close-order-details"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div
+            id="orderDetailsContent"
+            class="order-details-content"
+        >
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 

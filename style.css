@@ -2706,3 +2706,287 @@ footer {
     }
 
 }
+
+/* =========================
+   STEP 18E
+   NURSERY GALLERY
+========================= */
+
+.nursery-gallery {
+    max-width: 1100px;
+    margin: 80px auto 0;
+}
+
+.gallery-heading {
+    max-width: 700px;
+    margin-bottom: 35px;
+}
+
+.gallery-heading .eyebrow {
+    display: block;
+    margin-bottom: 12px;
+    color: #8ee28f;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+
+.gallery-heading h3 {
+    margin-bottom: 14px;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.1;
+}
+
+.gallery-heading p {
+    max-width: 620px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   GALLERY GRID
+========================= */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: 220px 220px;
+    gap: 16px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #123d25;
+}
+
+.gallery-item.gallery-large {
+    grid-row: span 2;
+}
+
+.gallery-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition:
+        transform 0.5s ease,
+        filter 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.92);
+}
+
+
+/* =========================
+   GALLERY OVERLAY
+========================= */
+
+.gallery-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            180deg,
+            transparent 55%,
+            rgba(0, 0, 0, 0.22) 100%
+        );
+    pointer-events: none;
+}
+
+
+/* =========================
+   GALLERY RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .nursery-gallery {
+        margin-top: 55px;
+    }
+
+    .gallery-heading {
+        margin-bottom: 28px;
+    }
+
+    .gallery-heading h3 {
+        font-size: 2.2rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 14px;
+    }
+
+    .gallery-item,
+    .gallery-item.gallery-large {
+        grid-row: auto;
+        height: 260px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .nursery-gallery {
+        margin-top: 45px;
+    }
+
+    .gallery-heading h3 {
+        font-size: 2rem;
+    }
+
+    .gallery-heading p {
+        font-size: 0.9rem;
+    }
+
+    .gallery-item,
+    .gallery-item.gallery-large {
+        height: 220px;
+        border-radius: 12px;
+    }
+
+}
+
+/* =========================
+   STEP 18F
+   FLOATING WHATSAPP
+========================= */
+
+.floating-whatsapp {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 145px;
+    min-height: 50px;
+    padding: 13px 20px;
+    border-radius: 50px;
+    background: #0B5D1E;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.22);
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+    background: #4CAF50;
+    transform: translateY(-4px);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.floating-whatsapp:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+
+    .floating-whatsapp {
+        right: 18px;
+        bottom: 18px;
+        min-width: 125px;
+        min-height: 46px;
+        padding: 11px 17px;
+        font-size: 0.78rem;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .floating-whatsapp {
+        right: 14px;
+        bottom: 14px;
+        min-width: 115px;
+        min-height: 44px;
+        padding: 10px 15px;
+        font-size: 0.75rem;
+    }
+
+}
+
+/* =========================
+   STEP 18F2
+   INTERACTION POLISH
+========================= */
+
+/* Keyboard accessibility */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #8ee28f;
+    outline-offset: 3px;
+}
+
+
+/* Button press feedback */
+
+.btn:active,
+.order-form-btn:active,
+.order-btn:active,
+.expand-btn:active,
+.location-btn:active {
+    transform: scale(0.98);
+}
+
+
+/* Navigation link interaction */
+
+.nav-links a {
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* Make clickable cards feel interactive */
+
+.contact-link {
+    cursor: pointer;
+}
+
+
+/* Improve form usability */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+
+/* Prevent mobile browsers from zooming
+   unnecessarily into form fields */
+
+@media (max-width: 768px) {
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px;
+    }
+
+}

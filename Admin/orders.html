@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -26,19 +27,17 @@
             color: #1b1b1b;
         }
 
+
         /* ================================
            HEADER
         ================================= */
 
         .admin-header {
             min-height: 70px;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             padding: 0 6%;
-
             background: #0B5D1E;
             color: #ffffff;
         }
@@ -59,18 +58,12 @@
 
         .header-btn {
             border: 1px solid rgba(255, 255, 255, 0.5);
-
             background: transparent;
             color: #ffffff;
-
             padding: 9px 16px;
-
             border-radius: 7px;
-
             cursor: pointer;
-
             font-weight: 600;
-
             text-decoration: none;
         }
 
@@ -87,7 +80,6 @@
         .orders-container {
             width: 92%;
             max-width: 1400px;
-
             margin: 40px auto;
         }
 
@@ -111,38 +103,137 @@
 
         .summary-grid {
             display: grid;
-
             grid-template-columns:
-                repeat(3, 1fr);
-
+                repeat(4, minmax(0, 1fr));
             gap: 20px;
-
             margin-bottom: 30px;
         }
 
         .summary-card {
             background: #ffffff;
-
             padding: 22px;
-
+            border: 1px solid transparent;
             border-radius: 12px;
-
             box-shadow:
                 0 4px 15px rgba(0, 0, 0, 0.06);
+            text-align: left;
         }
 
         .summary-card h3 {
             color: #666;
-
             font-size: 0.9rem;
-
             margin-bottom: 10px;
         }
 
         .summary-card strong {
             color: #0B5D1E;
-
             font-size: 1.8rem;
+        }
+
+        .summary-filter-card {
+            cursor: pointer;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .summary-filter-card:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 8px 22px rgba(0, 0, 0, 0.09);
+        }
+
+        .summary-filter-card.active {
+            border-color: #4CAF50;
+            box-shadow:
+                0 0 0 2px rgba(76, 175, 80, 0.12);
+        }
+
+        .summary-filter-card:focus {
+            outline: 2px solid #4CAF50;
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 1050px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+
+        /* ================================
+           ORDER FILTERS
+        ================================= */
+
+        .orders-toolbar {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .order-search {
+            flex: 1;
+        }
+
+        .order-status-filter,
+        .order-sort {
+            width: 220px;
+        }
+
+        .order-search label,
+        .order-status-filter label,
+        .order-sort label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .order-search input,
+        .order-status-filter select,
+        .order-sort select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #1b1b1b;
+            font-size: 0.9rem;
+        }
+
+        .order-search input:focus,
+        .order-status-filter select:focus,
+        .order-sort select:focus {
+            outline: 2px solid #4CAF50;
+            outline-offset: 1px;
+            border-color: #4CAF50;
+        }
+
+        @media (max-width: 700px) {
+
+            .orders-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .order-status-filter,
+            .order-sort {
+                width: 100%;
+            }
+
         }
 
 
@@ -152,41 +243,30 @@
 
         .orders-table-container {
             background: #ffffff;
-
             border-radius: 12px;
-
             box-shadow:
                 0 4px 15px rgba(0, 0, 0, 0.06);
-
             overflow-x: auto;
         }
 
         table {
             width: 100%;
-
             border-collapse: collapse;
-
             min-width: 900px;
         }
 
         th,
         td {
             padding: 15px;
-
             text-align: left;
-
             border-bottom: 1px solid #eeeeee;
         }
 
         th {
             background: #f8faf8;
-
             color: #444;
-
             font-size: 0.85rem;
-
             text-transform: uppercase;
-
             letter-spacing: 0.03em;
         }
 
@@ -196,27 +276,18 @@
 
         .status {
             display: inline-block;
-
             padding: 5px 10px;
-
             border-radius: 20px;
-
             font-size: 0.75rem;
-
             font-weight: 700;
-
             text-transform: capitalize;
-
             background: #fff3cd;
-
             color: #856404;
         }
 
         .empty-message {
             text-align: center;
-
             padding: 40px;
-
             color: #777;
         }
 
@@ -241,7 +312,6 @@
 
             .header-btn {
                 padding: 8px 10px;
-
                 font-size: 0.8rem;
             }
 
@@ -255,290 +325,239 @@
 
         }
 
+
         /* ================================
-   ORDER DETAILS MODAL
-================================ */
+           ORDER DETAILS MODAL
+        ================================= */
+
+        .order-details-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .order-details-modal[hidden] {
+            display: none;
+        }
+
+        .order-details-card {
+            width: min(700px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .order-details-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 28px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .order-details-label {
+            margin: 0 0 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: #4CAF50;
+        }
+
+        .order-details-header h2 {
+            margin: 0;
+            color: #0B5D1E;
+            font-size: 1.5rem;
+        }
+
+        .close-order-details {
+            width: 38px;
+            height: 38px;
+            border: none;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #333;
+            font-size: 1.6rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .close-order-details:hover {
+            background: #e5e7eb;
+        }
+
+        .order-details-content {
+            padding: 28px;
+        }
+
+        .order-detail-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .order-detail-grid > div {
+            padding: 18px;
+            background: #f8faf8;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+        }
+
+        .order-detail-grid span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .order-detail-grid strong {
+            display: block;
+            color: #1f2937;
+            font-size: 1rem;
+        }
+
 
-.order-details-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 24px;
-
-    background: rgba(0, 0, 0, 0.55);
-}
-
-.order-details-modal[hidden] {
-    display: none;
-}
-
-.order-details-card {
-    width: min(700px, 100%);
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    background: #ffffff;
-
-    border-radius: 16px;
-
-    box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.25);
-}
-
-.order-details-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 24px 28px;
-
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.order-details-label {
-    margin: 0 0 4px;
-
-    font-size: 0.75rem;
-    font-weight: 700;
-
-    letter-spacing: 0.12em;
-
-    color: #4CAF50;
-}
-
-.order-details-header h2 {
-    margin: 0;
-
-    color: #0B5D1E;
-
-    font-size: 1.5rem;
-}
-
-.close-order-details {
-    width: 38px;
-    height: 38px;
-
-    border: none;
-    border-radius: 50%;
-
-    background: #f3f4f6;
-    color: #333;
-
-    font-size: 1.6rem;
-    line-height: 1;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.close-order-details:hover {
-    background: #e5e7eb;
-}
-
-.order-details-content {
-    padding: 28px;
-}
-
-.order-detail-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 18px;
-}
-
-.order-detail-grid > div {
-    padding: 18px;
-
-    background: #f8faf8;
-
-    border: 1px solid #e5e7eb;
-
-    border-radius: 10px;
-}
-
-.order-detail-grid span {
-    display: block;
-
-    margin-bottom: 6px;
-
-    font-size: 0.78rem;
-    font-weight: 600;
-
-    color: #6b7280;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.04em;
-}
-
-.order-detail-grid strong {
-    display: block;
-
-    color: #1f2937;
-
-    font-size: 1rem;
-}
-
-
-/* ================================
-   ORDER VIEW BUTTON
-================================ */
-
-.view-order-button {
-    padding: 7px 14px;
-
-    border: none;
-    border-radius: 7px;
-
-    background: #0B5D1E;
-    color: #ffffff;
-
-    font-size: 0.8rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.view-order-button:hover {
-    background: #4CAF50;
-}
-
-
-/* ================================
-   STATUS SELECT
-================================ */
-
-.status-select {
-    padding: 7px 10px;
-
-    border: 1px solid #d1d5db;
-    border-radius: 7px;
-
-    background: #ffffff;
-    color: #333;
-
-    font-size: 0.8rem;
-
-    cursor: pointer;
-}
-
-.status-select:focus,
-.view-order-button:focus,
-.close-order-details:focus {
-    outline: 2px solid #4CAF50;
-    outline-offset: 2px;
-}
-
-
-/* ================================
-   MODAL MOBILE
-================================ */
-
-@media (max-width: 600px) {
-
-    .order-details-modal {
-        padding: 14px;
-    }
-
-    .order-details-header {
-        padding: 20px;
-    }
-
-    .order-details-content {
-        padding: 20px;
-    }
-
-    .order-detail-grid {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-.order-detail-message {
-    grid-column: 1 / -1;
-}
-
-.order-detail-message strong {
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.order-detail-actions {
-    grid-column: 1 / -1;
-
-    display: flex;
-    gap: 12px;
-
-    margin-top: 6px;
-}
-
-.call-order-button {
-    padding: 10px 16px;
-
-    border: 1px solid #0B5D1E;
-    border-radius: 7px;
-
-    background: #ffffff;
-    color: #0B5D1E;
-
-    font-size: 0.85rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.call-order-button:hover {
-    background: #0B5D1E;
-    color: #ffffff;
-}
-
-.whatsapp-order-button {
-    padding: 10px 16px;
-
-    border: none;
-    border-radius: 7px;
-
-    background: #4CAF50;
-    color: #ffffff;
-
-    font-size: 0.85rem;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-.whatsapp-order-button:hover {
-    background: #0B5D1E;
-}
-
-@media (max-width: 600px) {
-
-    .order-detail-actions {
-        flex-direction: column;
-    }
-
-    .whatsapp-order-button,
-    .call-order-button {
-        width: 100%;
-    }
-
-}
+        /* ================================
+           ORDER VIEW BUTTON
+        ================================= */
+
+        .view-order-button {
+            padding: 7px 14px;
+            border: none;
+            border-radius: 7px;
+            background: #0B5D1E;
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .view-order-button:hover {
+            background: #4CAF50;
+        }
+
+
+        /* ================================
+           STATUS SELECT
+        ================================= */
+
+        .status-select {
+            padding: 7px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #333;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .status-select:focus,
+        .view-order-button:focus,
+        .close-order-details:focus {
+            outline: 2px solid #4CAF50;
+            outline-offset: 2px;
+        }
+
+
+        /* ================================
+           MODAL MOBILE
+        ================================= */
+
+        @media (max-width: 600px) {
+
+            .order-details-modal {
+                padding: 14px;
+            }
+
+            .order-details-header {
+                padding: 20px;
+            }
+
+            .order-details-content {
+                padding: 20px;
+            }
+
+            .order-detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        .order-detail-message {
+            grid-column: 1 / -1;
+        }
+
+        .order-detail-message strong {
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .order-detail-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .call-order-button {
+            padding: 10px 16px;
+            border: 1px solid #0B5D1E;
+            border-radius: 7px;
+            background: #ffffff;
+            color: #0B5D1E;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .call-order-button:hover {
+            background: #0B5D1E;
+            color: #ffffff;
+        }
+
+        .whatsapp-order-button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 7px;
+            background: #4CAF50;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .whatsapp-order-button:hover {
+            background: #0B5D1E;
+        }
+
+        @media (max-width: 600px) {
+
+            .order-detail-actions {
+                flex-direction: column;
+            }
+
+            .whatsapp-order-button,
+            .call-order-button {
+                width: 100%;
+            }
+
+        }
 
     </style>
 
@@ -585,7 +604,6 @@
     </header>
 
 
-
     <!-- ================================
          ORDERS
     ================================= -->
@@ -606,39 +624,74 @@
         </section>
 
 
-
         <!-- ================================
              SUMMARY
         ================================= -->
 
         <section class="summary-grid">
 
+            <button
+                type="button"
+                class="summary-card summary-filter-card active"
+                data-status-filter="all"
+            >
+                <h3>Total Orders</h3>
+                <strong id="totalOrders">0</strong>
+            </button>
 
-            <div class="summary-card">
+            <button
+                type="button"
+                class="summary-card summary-filter-card"
+                data-status-filter="pending"
+            >
+                <h3>Pending</h3>
+                <strong id="pendingOrders">0</strong>
+            </button>
 
-                <h3>
-                    Total Orders
-                </h3>
+            <button
+                type="button"
+                class="summary-card summary-filter-card"
+                data-status-filter="confirmed"
+            >
+                <h3>Confirmed</h3>
+                <strong id="confirmedOrders">0</strong>
+            </button>
 
-                <strong id="totalOrders">
-                    0
-                </strong>
+            <button
+                type="button"
+                class="summary-card summary-filter-card"
+                data-status-filter="preparing"
+            >
+                <h3>Preparing</h3>
+                <strong id="preparingOrders">0</strong>
+            </button>
 
-            </div>
+            <button
+                type="button"
+                class="summary-card summary-filter-card"
+                data-status-filter="ready"
+            >
+                <h3>Ready</h3>
+                <strong id="readyOrders">0</strong>
+            </button>
 
+            <button
+                type="button"
+                class="summary-card summary-filter-card"
+                data-status-filter="completed"
+            >
+                <h3>Completed</h3>
+                <strong id="completedOrders">0</strong>
+            </button>
 
-            <div class="summary-card">
-
-                <h3>
-                    Pending Orders
-                </h3>
-
-                <strong id="pendingOrders">
-                    0
-                </strong>
-
-            </div>
-
+            <button
+                type="button"
+                class="summary-card summary-filter-card"
+                data-status-filter="cancelled"
+            >
+                <h3>Cancelled</h3>
+                <strong id="cancelledOrders">0</strong>
+            </button>
 
             <div class="summary-card">
 
@@ -652,9 +705,109 @@
 
             </div>
 
-
         </section>
 
+
+        <!-- ================================
+             ORDER FILTERS
+        ================================= -->
+
+        <section class="orders-toolbar">
+
+            <div class="order-search">
+
+                <label for="orderSearch">
+                    Search Orders
+                </label>
+
+                <input
+                    type="search"
+                    id="orderSearch"
+                    placeholder="Search customer, phone, variety or location..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="order-status-filter">
+
+                <label for="orderStatusFilter">
+                    Status
+                </label>
+
+                <select id="orderStatusFilter">
+
+                    <option value="all">
+                        All Orders
+                    </option>
+
+                    <option value="pending">
+                        Pending
+                    </option>
+
+                    <option value="confirmed">
+                        Confirmed
+                    </option>
+
+                    <option value="preparing">
+                        Preparing
+                    </option>
+
+                    <option value="ready">
+                        Ready
+                    </option>
+
+                    <option value="completed">
+                        Completed
+                    </option>
+
+                    <option value="cancelled">
+                        Cancelled
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="order-sort">
+
+                <label for="orderSort">
+                    Sort By
+                </label>
+
+                <select id="orderSort">
+
+                    <option value="newest">
+                        Newest First
+                    </option>
+
+                    <option value="oldest">
+                        Oldest First
+                    </option>
+
+                    <option value="highest-value">
+                        Highest Value
+                    </option>
+
+                    <option value="lowest-value">
+                        Lowest Value
+                    </option>
+
+                    <option value="largest-quantity">
+                        Largest Quantity
+                    </option>
+
+                    <option value="smallest-quantity">
+                        Smallest Quantity
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
 
 
         <!-- ================================
@@ -723,7 +876,6 @@
                             class="empty-message"
                         >
                             Loading orders...
-
                         </td>
 
                     </tr>
@@ -736,7 +888,6 @@
 
 
     </main>
-
 
 
     <!-- ================================
@@ -753,47 +904,52 @@
         src="orders.js"
     ></script>
 
-<!-- ================================
-     ORDER DETAILS MODAL
-================================ -->
 
-<div
-    id="orderDetailsModal"
-    class="order-details-modal"
-    hidden
->
+    <!-- ================================
+         ORDER DETAILS MODAL
+    ================================= -->
 
-    <div class="order-details-card">
+    <div
+        id="orderDetailsModal"
+        class="order-details-modal"
+        hidden
+    >
 
-        <div class="order-details-header">
+        <div class="order-details-card">
 
-            <div>
-                <p class="order-details-label">
-                    ORDER DETAILS
-                </p>
+            <div class="order-details-header">
 
-                <h2>Customer Order</h2>
+                <div>
+
+                    <p class="order-details-label">
+                        ORDER DETAILS
+                    </p>
+
+                    <h2>Customer Order</h2>
+
+                </div>
+
+                <button
+                    id="closeOrderDetails"
+                    class="close-order-details"
+                    type="button"
+                >
+                    ×
+                </button>
+
             </div>
 
-            <button
-                id="closeOrderDetails"
-                class="close-order-details"
-                type="button"
+
+            <div
+                id="orderDetailsContent"
+                class="order-details-content"
             >
-                ×
-            </button>
+            </div>
 
-        </div>
-
-        <div
-            id="orderDetailsContent"
-            class="order-details-content"
-        >
         </div>
 
     </div>
 
-</div>
 
 </body>
 

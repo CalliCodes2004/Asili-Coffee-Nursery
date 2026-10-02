@@ -49,11 +49,40 @@ const totalOrders =
 const pendingOrders =
     document.querySelector("#pendingOrders");
 
+const confirmedOrders =
+    document.querySelector("#confirmedOrders");
+
+const preparingOrders =
+    document.querySelector("#preparingOrders");
+
+const readyOrders =
+    document.querySelector("#readyOrders");
+
+const completedOrders =
+    document.querySelector("#completedOrders");
+
+const cancelledOrders =
+    document.querySelector("#cancelledOrders");
+
 const orderValue =
     document.querySelector("#orderValue");
 
 const logoutButton =
     document.querySelector("#logoutButton");
+
+const orderSearch =
+    document.querySelector("#orderSearch");
+
+const orderStatusFilter =
+    document.querySelector("#orderStatusFilter");
+
+const orderSort =
+    document.querySelector("#orderSort");
+
+const summaryFilterCards =
+    document.querySelectorAll(".summary-filter-card");
+
+let loadedOrders = [];
 
 
 // ================================
@@ -88,152 +117,18 @@ async function loadOrders() {
                 collection(db, "orders")
             );
 
-
-        let totalOrderCount = 0;
-
-        let pendingOrderCount = 0;
-
-        let totalOrderValue = 0;
-
-
-        ordersTableBody.innerHTML = "";
-
-
-        if (ordersSnapshot.empty) {
-
-            ordersTableBody.innerHTML = `
-
-                <tr>
-
-                    <td
-                        colspan="8"
-                        class="empty-message"
-                    >
-                        No orders found.
-
-                    </td>
-
-                </tr>
-
-            `;
-
-            updateSummary(
-                0,
-                0,
-                0
-            );
-
-            return;
-        }
-
+        loadedOrders = [];
 
         ordersSnapshot.forEach((orderDocument) => {
 
-            const order =
-                orderDocument.data();
-
-
-            totalOrderCount++;
-
-
-            const quantity =
-                Number(order.quantity || 0);
-
-            const total =
-                Number(order.total || 0);
-
-
-            totalOrderValue += total;
-
-
-            const status =
-                order.status || "pending";
-
-
-            if (
-                status.toLowerCase() ===
-                "pending"
-            ) {
-
-                pendingOrderCount++;
-
-            }
-
-
-            const row =
-                document.createElement("tr");
-
-
-            row.innerHTML = `
-    <td>${order.customerName || "-"}</td>
-    <td>${order.phone || "-"}</td>
-    <td>${order.variety || "-"}</td>
-    <td>${quantity.toLocaleString()}</td>
-    <td>KSh ${total.toLocaleString()}</td>
-    <td>${order.location || "-"}</td>
-    <td>${order.orderMethod || "-"}</td>
-
-<td>
-    ${
-        order.createdAt
-            ? order.createdAt.toDate().toLocaleString()
-            : "-"
-    }
-</td>
-
-<td>
-    
-        <select class="status-select" data-order-id="${orderDocument.id}">
-            <option value="pending" ${status === "pending" ? "selected" : ""}>
-                Pending
-            </option>
-
-            <option value="confirmed" ${status === "confirmed" ? "selected" : ""}>
-                Confirmed
-            </option>
-
-            <option value="preparing" ${status === "preparing" ? "selected" : ""}>
-                Preparing
-            </option>
-
-            <option value="ready" ${status === "ready" ? "selected" : ""}>
-                Ready
-            </option>
-
-            <option value="completed" ${status === "completed" ? "selected" : ""}>
-                Completed
-            </option>
-
-            <option value="cancelled" ${status === "cancelled" ? "selected" : ""}>
-                Cancelled
-            </option>
-        </select>
-    </td>
-
-    <td>
-    <button
-    class="view-order-button"
-    data-order-id="${orderDocument.id}"
-    data-message="${(order.additionalMessage || "")
-        .replace(/"/g, "&quot;")}"
->
-    View
-</button>
-</td>
-`;
-
-
-            ordersTableBody.appendChild(row);
+            loadedOrders.push({
+                id: orderDocument.id,
+                ...orderDocument.data()
+            });
 
         });
 
-
-        updateSummary(
-            totalOrderCount,
-            pendingOrderCount,
-            totalOrderValue
-        );
-
+        renderOrders();
 
     } catch (error) {
 
@@ -242,21 +137,15 @@ async function loadOrders() {
             error
         );
 
-
         ordersTableBody.innerHTML = `
-
             <tr>
-
                 <td
-                    colspan="8"
+                    colspan="10"
                     class="empty-message"
                 >
                     Unable to load orders.
-
                 </td>
-
             </tr>
-
         `;
 
     }
@@ -265,25 +154,434 @@ async function loadOrders() {
 
 
 // ================================
+// RENDER ORDERS
+// ================================
+
+function renderOrders() {
+
+    const searchTerm =
+        orderSearch.value
+            .trim()
+            .toLowerCase();
+
+    const selectedStatus =
+        orderStatusFilter.value;
+
+
+    const filteredOrders =
+        loadedOrders.filter((order) => {
+
+            const status =
+                String(order.status || "pending")
+                    .toLowerCase();
+
+
+            const matchesStatus =
+                selectedStatus === "all" ||
+                status === selectedStatus;
+
+
+            const searchableText = [
+                order.customerName,
+                order.phone,
+                order.variety,
+                order.location
+            ]
+                .map((value) =>
+                    String(value || "").toLowerCase()
+                )
+                .join(" ");
+
+
+            const matchesSearch =
+                searchableText.includes(searchTerm);
+
+
+            return (
+                matchesStatus &&
+                matchesSearch
+            );
+
+        });
+
+
+    const sortOption =
+        orderSort.value;
+
+
+    filteredOrders.sort((a, b) => {
+
+        const aTotal =
+            Number(a.total || 0);
+
+        const bTotal =
+            Number(b.total || 0);
+
+        const aQuantity =
+            Number(a.quantity || 0);
+
+        const bQuantity =
+            Number(b.quantity || 0);
+
+        const aDate =
+            a.createdAt
+                ? a.createdAt.toMillis()
+                : 0;
+
+        const bDate =
+            b.createdAt
+                ? b.createdAt.toMillis()
+                : 0;
+
+
+        switch (sortOption) {
+
+            case "oldest":
+                return aDate - bDate;
+
+            case "highest-value":
+                return bTotal - aTotal;
+
+            case "lowest-value":
+                return aTotal - bTotal;
+
+            case "largest-quantity":
+                return bQuantity - aQuantity;
+
+            case "smallest-quantity":
+                return aQuantity - bQuantity;
+
+            case "newest":
+            default:
+                return bDate - aDate;
+
+        }
+
+    });
+
+
+    ordersTableBody.innerHTML = "";
+
+
+    if (filteredOrders.length === 0) {
+
+        ordersTableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="10"
+                    class="empty-message"
+                >
+                    No matching orders found.
+                </td>
+            </tr>
+        `;
+
+        updateSummary();
+        updateActiveSummaryCard();
+
+        return;
+
+    }
+
+
+    filteredOrders.forEach((order) => {
+
+        const quantity =
+            Number(order.quantity || 0);
+
+        const total =
+            Number(order.total || 0);
+
+        const status =
+            String(order.status || "pending")
+                .toLowerCase();
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+            <td>${order.customerName || "-"}</td>
+            <td>${order.phone || "-"}</td>
+            <td>${order.variety || "-"}</td>
+            <td>${quantity.toLocaleString()}</td>
+            <td>KSh ${total.toLocaleString()}</td>
+            <td>${order.location || "-"}</td>
+            <td>${order.orderMethod || "-"}</td>
+
+            <td>
+                ${
+                    order.createdAt
+                        ? order.createdAt.toDate().toLocaleString()
+                        : "-"
+                }
+            </td>
+
+            <td>
+
+                <select
+    class="status-select"
+    data-order-id="${order.id}"
+    ${status === "completed" || status === "cancelled" ? "disabled" : ""}
+>
+
+    <option
+        value="${status}"
+        selected
+    >
+        ${
+            status === "pending"
+                ? "Pending"
+                : status === "confirmed"
+                ? "Confirmed"
+                : status === "preparing"
+                ? "Preparing"
+                : status === "ready"
+                ? "Ready"
+                : status === "completed"
+                ? "Completed"
+                : status === "cancelled"
+                ? "Cancelled"
+                : status
+        }
+    </option>
+
+    ${
+        status === "pending"
+            ? `
+                <option value="confirmed">
+                    Confirmed
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+            `
+            : ""
+    }
+
+    ${
+        status === "confirmed"
+            ? `
+                <option value="preparing">
+                    Preparing
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+            `
+            : ""
+    }
+
+    ${
+        status === "preparing"
+            ? `
+                <option value="ready">
+                    Ready
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+            `
+            : ""
+    }
+
+    ${
+        status === "ready"
+            ? `
+                <option value="completed">
+                    Completed
+                </option>
+
+                <option value="cancelled">
+                    Cancelled
+                </option>
+            `
+            : ""
+    }
+
+</select>
+            </td>
+
+            <td>
+
+                <button
+                    class="view-order-button"
+                    data-order-id="${order.id}"
+                    data-message="${String(order.additionalMessage || "")
+                        .replace(/"/g, "&quot;")}"
+                >
+                    View
+                </button>
+
+            </td>
+        `;
+
+
+        ordersTableBody.appendChild(row);
+
+    });
+
+
+    updateSummary();
+    updateActiveSummaryCard();
+
+}
+
+
+// ================================
 // UPDATE SUMMARY
 // ================================
 
-function updateSummary(
-    total,
-    pending,
-    value
-) {
+function updateSummary() {
+
+    const counts = {
+
+        pending: 0,
+        confirmed: 0,
+        preparing: 0,
+        ready: 0,
+        completed: 0,
+        cancelled: 0
+
+    };
+
+
+    let totalOrderValue = 0;
+
+
+    loadedOrders.forEach((order) => {
+
+        const status =
+            String(order.status || "pending")
+                .toLowerCase();
+
+
+        if (
+            Object.prototype.hasOwnProperty.call(
+                counts,
+                status
+            )
+        ) {
+
+            counts[status] += 1;
+
+        }
+
+
+        totalOrderValue +=
+            Number(order.total || 0);
+
+    });
+
 
     totalOrders.textContent =
-        total.toLocaleString();
+        loadedOrders.length.toLocaleString();
 
     pendingOrders.textContent =
-        pending.toLocaleString();
+        counts.pending.toLocaleString();
+
+    confirmedOrders.textContent =
+        counts.confirmed.toLocaleString();
+
+    preparingOrders.textContent =
+        counts.preparing.toLocaleString();
+
+    readyOrders.textContent =
+        counts.ready.toLocaleString();
+
+    completedOrders.textContent =
+        counts.completed.toLocaleString();
+
+    cancelledOrders.textContent =
+        counts.cancelled.toLocaleString();
 
     orderValue.textContent =
-        `KSh ${value.toLocaleString()}`;
+        `KSh ${totalOrderValue.toLocaleString()}`;
 
 }
+
+
+// ================================
+// ACTIVE SUMMARY CARD
+// ================================
+
+function updateActiveSummaryCard() {
+
+    const selectedStatus =
+        orderStatusFilter.value;
+
+
+    summaryFilterCards.forEach((card) => {
+
+        card.classList.toggle(
+            "active",
+            card.dataset.statusFilter ===
+                selectedStatus
+        );
+
+    });
+
+}
+
+
+// ================================
+// SEARCH
+// ================================
+
+orderSearch.addEventListener(
+    "input",
+    renderOrders
+);
+
+
+// ================================
+// STATUS FILTER
+// ================================
+
+orderStatusFilter.addEventListener(
+    "change",
+    renderOrders
+);
+
+
+// ================================
+// SORT
+// ================================
+
+orderSort.addEventListener(
+    "change",
+    renderOrders
+);
+
+
+// ================================
+// SUMMARY CARD FILTERS
+// ================================
+
+summaryFilterCards.forEach((card) => {
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            const status =
+                card.dataset.statusFilter;
+
+
+            orderStatusFilter.value =
+                status;
+
+
+            renderOrders();
+
+        }
+    );
+
+});
 
 
 // ================================
@@ -317,6 +615,7 @@ logoutButton.addEventListener(
     }
 );
 
+
 // ================================
 // UPDATE ORDER STATUS
 // ================================
@@ -339,9 +638,11 @@ ordersTableBody.addEventListener("change", async (event) => {
     try {
 
         await updateInventoryForOrder(
-    orderId,
-    newStatus
-);
+            orderId,
+            newStatus
+        );
+
+        await loadOrders();
 
         console.log(
             `Order ${orderId} updated to ${newStatus}`
@@ -355,15 +656,18 @@ ordersTableBody.addEventListener("change", async (event) => {
         );
 
         alert(
-            "Unable to update the order status. Please try again."
-        );
+    error.message ||
+    "Unable to update the order status. Please try again."
+);
 
         // Reload orders so the dropdown returns
         // to the actual Firestore status.
         loadOrders();
+
     }
 
 });
+
 
 // ================================
 // VIEW ORDER DETAILS
@@ -463,38 +767,40 @@ function showOrderDetails(orderId) {
             </div>
 
             <div class="order-detail-message">
-    <span>Customer Message</span>
+                <span>Customer Message</span>
 
-    <strong>
-        ${
-            customerMessage
-                ? customerMessage
-                : "No additional message"
-        }
-    </strong>
-</div>
+                <strong>
+                    ${
+                        customerMessage
+                            ? customerMessage
+                            : "No additional message"
+                    }
+                </strong>
+            </div>
 
-        <div class="order-detail-actions">
+            <div class="order-detail-actions">
 
-    <button
-        type="button"
-        class="whatsapp-order-button"
-        data-phone="${cells[1].textContent}"
-        data-customer="${cells[0].textContent}"
-        data-variety="${cells[2].textContent}"
-    >
-        WhatsApp Customer
-    </button>
+                <button
+                    type="button"
+                    class="whatsapp-order-button"
+                    data-phone="${cells[1].textContent}"
+                    data-customer="${cells[0].textContent}"
+                    data-variety="${cells[2].textContent}"
+                >
+                    WhatsApp Customer
+                </button>
 
-    <button
-        type="button"
-        class="call-order-button"
-        data-phone="${cells[1].textContent}"
-    >
-        Call Customer
-    </button>
+                <button
+                    type="button"
+                    class="call-order-button"
+                    data-phone="${cells[1].textContent}"
+                >
+                    Call Customer
+                </button>
 
-</div>
+            </div>
+
+        </div>
 
     `;
 
@@ -508,6 +814,7 @@ closeOrderDetails.addEventListener("click", () => {
     orderDetailsModal.hidden = true;
 
 });
+
 
 // ================================
 // WHATSAPP CUSTOMER
@@ -564,6 +871,7 @@ orderDetailsContent.addEventListener("click", (event) => {
 
 });
 
+
 // ================================
 // CALL CUSTOMER
 // ================================
@@ -603,6 +911,7 @@ orderDetailsContent.addEventListener("click", (event) => {
 
 });
 
+
 // ================================
 // UPDATE INVENTORY FOR ORDER
 // ================================
@@ -613,9 +922,9 @@ async function updateInventoryForOrder(
 ) {
 
     newStatus =
-    String(newStatus)
-        .trim()
-        .toLowerCase();
+        String(newStatus)
+            .trim()
+            .toLowerCase();
 
     const orderReference =
         doc(db, "orders", orderId);
@@ -710,60 +1019,60 @@ async function updateInventoryForOrder(
 
 
             const currentStatus =
-    String(order.status || "pending")
-        .trim()
-        .toLowerCase();
+                String(order.status || "pending")
+                    .trim()
+                    .toLowerCase();
 
-        
+
             // ================================
-// VALIDATE STATUS TRANSITION
-// ================================
+            // VALIDATE STATUS TRANSITION
+            // ================================
 
-const allowedTransitions = {
+            const allowedTransitions = {
 
-    pending: [
-        "confirmed",
-        "cancelled"
-    ],
+                pending: [
+                    "confirmed",
+                    "cancelled"
+                ],
 
-    confirmed: [
-        "preparing",
-        "cancelled"
-    ],
+                confirmed: [
+                    "preparing",
+                    "cancelled"
+                ],
 
-    preparing: [
-        "ready",
-        "cancelled"
-    ],
+                preparing: [
+                    "ready",
+                    "cancelled"
+                ],
 
-    ready: [
-        "completed",
-        "cancelled"
-    ],
+                ready: [
+                    "completed",
+                    "cancelled"
+                ],
 
-    completed: [],
+                completed: [],
 
-    cancelled: []
+                cancelled: []
 
-};
-
-
-if (newStatus === currentStatus) {
-    return;
-}
+            };
 
 
-const allowedNextStatuses =
-    allowedTransitions[currentStatus] || [];
+            if (newStatus === currentStatus) {
+                return;
+            }
 
 
-if (!allowedNextStatuses.includes(newStatus)) {
+            const allowedNextStatuses =
+                allowedTransitions[currentStatus] || [];
 
-    throw new Error(
-        `Invalid order status change: ${currentStatus} → ${newStatus}.`
-    );
 
-}
+            if (!allowedNextStatuses.includes(newStatus)) {
+
+                throw new Error(
+                    `Invalid order status change: ${currentStatus} → ${newStatus}.`
+                );
+
+            }
 
 
             // ================================
@@ -877,6 +1186,7 @@ if (!allowedNextStatuses.includes(newStatus)) {
     );
 
 }
+
 
 function getInventoryId(variety) {
 

@@ -271,6 +271,7 @@ productsTableBody.addEventListener(
             productVariety.value =
                 product.variety ||
                 product.name ||
+                productNames[selectedProductId] ||
                 selectedProductId;
 
 

@@ -284,11 +284,12 @@ productCards.forEach((card) => {
 
 
 // ================================
-// WHATSAPP PRODUCT ORDERS
+// PRODUCT CARD ORDERS
 // ================================
 
 const orderButtons =
     document.querySelectorAll(".order-btn");
+
 
 orderButtons.forEach((button) => {
 
@@ -297,14 +298,14 @@ orderButtons.forEach((button) => {
         const variety =
             button.dataset.variety;
 
-        const price =
-            Number(button.dataset.price);
 
         const details =
             button.closest(".product-details");
 
+
         const quantityInput =
             details.querySelector(".quantity-input");
+
 
         const quantity =
             Number(quantityInput.value);
@@ -323,34 +324,76 @@ orderButtons.forEach((button) => {
         }
 
 
-        // Calculate total
-        const total =
-            price * quantity;
+        // Make sure this variety is still active
+        if (productStatuses[variety] === false) {
+
+            alert(
+                "This variety is currently unavailable. Please select another variety."
+            );
+
+            return;
+        }
 
 
-        // WhatsApp order message
-        const message =
-            `Hello Asili Coffee Nursery,\n\n` +
-            `I would like to place a seedling order.\n\n` +
-            `Variety: ${variety}\n` +
-            `Quantity: ${quantity.toLocaleString()} seedlings\n` +
-            `Price: KSh ${price.toLocaleString()} per seedling\n` +
-            `Estimated Value: KSh ${total.toLocaleString()}\n\n` +
-            `Please confirm availability and delivery/pickup arrangements.\n\n` +
-            `Thank you.`;
+        // Get the existing order form
+        const customerVariety =
+            document.querySelector("#customerVariety");
+
+        const customerQuantity =
+            document.querySelector("#customerQuantity");
+
+        const orderForm =
+            document.querySelector("#orderForm");
 
 
-        const whatsappNumber =
-            "254745208905";
+        if (
+            !customerVariety ||
+            !customerQuantity ||
+            !orderForm
+        ) {
+
+            console.error(
+                "Order form could not be found."
+            );
+
+            alert(
+                "Unable to open the order form. Please refresh the page and try again."
+            );
+
+            return;
+        }
 
 
-        // Encode message safely
-        const whatsappURL =
-            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        // Automatically transfer the product
+        // card selection into the order form
+        customerVariety.value =
+            variety;
+
+        customerQuantity.value =
+            quantity;
 
 
-        // Open WhatsApp
-        window.open(whatsappURL, "_blank");
+        // Scroll customer to the order form
+        orderForm.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+
+        // Focus the first customer field
+        const customerName =
+            document.querySelector("#customerName");
+
+
+        if (customerName) {
+
+            setTimeout(() => {
+
+                customerName.focus();
+
+            }, 600);
+
+        }
 
     });
 

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Inventory | Asili Coffee Nursery</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #f5f7f5;
+
+            color: #1b1b1b;
+        }
+
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .admin-header {
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: #0B5D1E;
+
+            color: #ffffff;
+        }
+
+        .admin-logo h1 {
+            font-size: 1.5rem;
+        }
+
+        .admin-logo span {
+            font-weight: normal;
+
+            opacity: 0.85;
+        }
+
+        .header-actions {
+            display: flex;
+
+            gap: 10px;
+        }
+
+        .header-btn {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            background: transparent;
+
+            color: #ffffff;
+
+            padding: 9px 16px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .header-btn:hover {
+            background: #ffffff;
+
+            color: #0B5D1E;
+        }
+
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .inventory-container {
+            width: 92%;
+
+            max-width: 1400px;
+
+            margin: 40px auto;
+        }
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-heading h2 {
+            font-size: 2rem;
+
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #666;
+        }
+
+
+        /* ================================
+           SUMMARY
+        ================================= */
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .summary-card h3 {
+            color: #666;
+
+            font-size: 0.9rem;
+
+            margin-bottom: 10px;
+        }
+
+        .summary-card strong {
+            color: #0B5D1E;
+
+            font-size: 1.8rem;
+        }
+
+
+        /* ================================
+           INVENTORY TABLE
+        ================================= */
+
+        .inventory-table-container {
+            background: #ffffff;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 800px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+
+            text-align: left;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        th {
+            background: #f8faf8;
+
+            color: #444;
+
+            font-size: 0.85rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.03em;
+        }
+
+        td {
+            font-size: 0.9rem;
+        }
+
+        .empty-message {
+            text-align: center;
+
+            padding: 40px;
+
+            color: #777;
+        }
+
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 900px) {
+
+            .summary-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .admin-header {
+                padding: 0 4%;
+            }
+
+            .admin-logo h1 {
+                font-size: 1.15rem;
+            }
+
+            .header-actions {
+                gap: 5px;
+            }
+
+            .header-btn {
+                padding: 8px 10px;
+
+                font-size: 0.8rem;
+            }
+
+            .inventory-container {
+                width: 94%;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        .inventory-action-button {
+    padding: 7px 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #0B5D1E;
+    color: #ffffff;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.inventory-action-button:hover {
+    background: #4CAF50;
+}
+
+.inventory-action-button.secondary {
+    background: #ffffff;
+
+    color: #0B5D1E;
+
+    border: 1px solid #0B5D1E;
+}
+
+.inventory-action-button.secondary:hover {
+    background: #0B5D1E;
+    color: #ffffff;
+}
+
+
+.inventory-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.inventory-modal[hidden] {
+    display: none;
+}
+
+.inventory-modal-card {
+    width: min(500px, 100%);
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+
+    overflow: hidden;
+}
+
+.inventory-modal-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 24px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.inventory-modal-label {
+    margin-bottom: 5px;
+
+    color: #4CAF50;
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+}
+
+.inventory-modal-header h2 {
+    color: #0B5D1E;
+
+    font-size: 1.35rem;
+}
+
+.close-inventory-modal {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f3f1;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+}
+
+#inventoryForm {
+    padding: 24px;
+}
+
+#inventoryForm label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #555;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+}
+
+#inventoryForm input,
+#inventoryForm select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid #d5d9d5;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    font-size: 0.9rem;
+}
+
+.save-inventory-button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #0B5D1E;
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.save-inventory-button:hover {
+    background: #4CAF50;
+}
+
+    </style>
+    
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         HEADER
+    ================================= -->
+
+    <header class="admin-header">
+
+        <div class="admin-logo">
+
+            <h1>
+                ASILI
+                <span>Coffee Nursery</span>
+            </h1>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <a
+                href="dashboard.html"
+                class="header-btn"
+            >
+                Dashboard
+            </a>
+
+            <button
+                id="logoutButton"
+                class="header-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================
+         INVENTORY
+    ================================= -->
+
+    <main class="inventory-container">
+
+
+        <section class="page-heading">
+
+            <h2>
+                Inventory
+            </h2>
+
+            <p>
+                Monitor coffee seedling production and stock.
+            </p>
+
+        </section>
+
+        <div
+    id="inventoryModal"
+    class="inventory-modal"
+    hidden
+>
+
+    <div class="inventory-modal-card">
+
+        <div class="inventory-modal-header">
+
+            <div>
+
+                <p class="inventory-modal-label">
+                    INVENTORY MANAGEMENT
+                </p>
+
+                <h2 id="inventoryModalTitle">
+                    Update Inventory
+                </h2>
+
+            </div>
+
+            <button
+                id="closeInventoryModal"
+                type="button"
+                class="close-inventory-modal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="inventoryForm">
+
+            <label for="inventoryAmount">
+                Quantity
+            </label>
+
+            <input
+                id="inventoryAmount"
+                type="number"
+                step="1"
+                required
+            >
+
+
+            <label for="inventoryField">
+                Inventory Field
+            </label>
+
+            <select
+                id="inventoryField"
+                required
+            >
+
+                <option value="production">
+                    Production
+                </option>
+
+                <option value="available">
+                    Available
+                </option>
+                <option
+    value="reserved"
+    disabled
+>
+    Reserved — Orders Only
+</option>
+
+<option
+    value="sold"
+    disabled
+>
+    Sold — Orders Only
+</option>
+
+
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="save-inventory-button"
+            >
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+        <!-- ================================
+             SUMMARY
+        ================================= -->
+
+        <section class="summary-grid">
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Available
+                </h3>
+
+                <strong id="totalAvailable">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Reserved
+                </h3>
+
+                <strong id="totalReserved">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Sold
+                </h3>
+
+                <strong id="totalSold">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Production
+                </h3>
+
+                <strong id="totalProduction">
+                    0
+                </strong>
+
+                
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================================
+             INVENTORY TABLE
+        ================================= -->
+
+        <section class="inventory-table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Variety
+                        </th>
+
+                        <th>
+                            Available
+                        </th>
+
+                        <th>
+                            Reserved
+                        </th>
+
+                        <th>
+                            Sold
+                        </th>
+
+                        <th>
+                            Production
+                        </th>
+                        
+                        <th>
+                            Actions
+                        </th>
+
+
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="inventoryTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty-message"
+                        >
+                            Inventory loading...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================================
+         FIREBASE
+    ================================= -->
+
+    <script
+        type="module"
+        src="../firebase-config.js"
+    ></script>
+
+    <script
+    type="module"
+    src="inventory.js"
+></script>
+
+</body>
+
+</html>

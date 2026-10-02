@@ -1,6 +1,236 @@
 import {
+    collection,
+    getDocs
+} from
+    "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+
+import {
     saveOrder
 } from "./order-service.js";
+
+
+const db =
+    window.asiliDB;
+
+    // ================================
+// LIVE PRODUCT DATA
+// ================================
+
+const productPrices = {};
+const productStatuses = {};
+
+
+async function loadProductPrices() {
+
+    try {
+
+        const productsSnapshot =
+            await getDocs(
+                collection(db, "products")
+            );
+
+
+        const productNames = {
+            "batian": "Batian",
+            "ruiru-11": "Ruiru 11",
+            "sl34": "SL34",
+            "sl28": "SL28",
+            "k7": "K7"
+        };
+
+
+        productsSnapshot.forEach(
+            (productDocument) => {
+
+                const product =
+                    productDocument.data();
+
+
+                const variety =
+                    productNames[productDocument.id] ||
+                    product.variety ||
+                    product.name ||
+                    productDocument.id;
+
+
+                const price =
+                    Number(product.price || 0);
+
+                    const isActive =
+    product.active !== false;
+
+
+                if (variety) {
+
+    if (price > 0) {
+        productPrices[variety] =
+            price;
+    }
+
+    productStatuses[variety] =
+        isActive;
+
+}
+            }
+        );
+
+
+       // Update product card prices
+
+document
+    .querySelectorAll(".product-card")
+    .forEach((card) => {
+
+        const orderButton =
+            card.querySelector(".order-btn");
+
+        const priceDisplay =
+            card.querySelector(".product-price");
+
+
+        if (!orderButton || !priceDisplay) {
+            return;
+        }
+
+
+        const variety =
+            orderButton.dataset.variety;
+
+
+        const livePrice =
+            productPrices[variety];
+
+            const isActive =
+    productStatuses[variety] !== false;
+
+
+const statusDisplay =
+    card.querySelector(".product-status");
+
+
+const quantityInput =
+    card.querySelector(".quantity-input");
+
+
+        if (!livePrice) {
+            return;
+        }
+
+
+        // Update price used by calculator and WhatsApp
+
+        orderButton.dataset.price =
+            livePrice;
+
+
+        // Update visible price on product card
+
+        priceDisplay.innerHTML =
+            `KSh ${livePrice.toLocaleString()} <small>/ seedling</small>`;
+
+    // Update product availability
+
+if (isActive) {
+
+    if (statusDisplay) {
+        statusDisplay.textContent =
+            "● Available — Bulk Orders Welcome";
+    }
+
+    if (quantityInput) {
+        quantityInput.disabled = false;
+    }
+
+    orderButton.disabled = false;
+
+
+} else {
+
+    if (statusDisplay) {
+        statusDisplay.textContent =
+            "● Currently Unavailable";
+    }
+
+    if (quantityInput) {
+        quantityInput.disabled = true;
+        quantityInput.value = "";
+    }
+
+    orderButton.disabled = true;
+
+}
+
+});
+
+
+            // Update enquiry form prices
+
+const varietySelect =
+    document.querySelector("#customerVariety");
+
+
+if (varietySelect) {
+
+    varietySelect
+        .querySelectorAll("option")
+        .forEach((option) => {
+
+            const variety =
+                option.value;
+
+
+            if (!variety) {
+                return;
+            }
+
+
+            const livePrice =
+                productPrices[variety];
+
+                const isActive =
+                      productStatuses[variety] !== false;
+
+
+            if (livePrice) {
+
+    if (isActive) {
+
+        option.textContent =
+            `${variety} — KSh ${livePrice.toLocaleString()}`;
+
+        option.disabled = false;
+
+    } else {
+
+        option.textContent =
+            `${variety} — Currently Unavailable`;
+
+        option.disabled = true;
+
+    }
+
+}
+
+        });
+
+}
+
+
+    } catch (error) {
+
+        console.error(
+            "Unable to load product prices:",
+            error
+        );
+
+    }
+
+}
+
+loadProductPrices();
+
+    
 // ================================
 // PRODUCT CARD EXPANSION
 // ================================
@@ -314,23 +544,48 @@ if (orderForm) {
 
 
         // Seedling prices
-        const prices = {
+        // Get current product price from Firestore
 
-            "Batian": 60,
-
-            "Ruiru 11": 80,
-
-            "SL34": 55,
-
-            "SL28": 55,
-
-            "K7": 50
-
-        };
+const varietyNames = {
+    "batian": "Batian",
+    "ruiru-11": "Ruiru 11",
+    "ruiru 11": "Ruiru 11",
+    "sl34": "SL34",
+    "sl28": "SL28",
+    "k7": "K7"
+};
 
 
-        const price =
-            prices[variety];
+const normalizedVariety =
+    varietyNames[
+        String(variety)
+            .trim()
+            .toLowerCase()
+    ] || variety;
+
+
+const price =
+    productPrices[normalizedVariety];
+
+
+if (!price) {
+
+    console.error(
+        "Price not found:",
+        {
+            variety,
+            normalizedVariety,
+            productPrices
+        }
+    );
+
+    alert(
+        "Unable to retrieve the current price for this variety. Please refresh the page and try again."
+    );
+
+    return;
+
+}
 
         const total =
             price * quantity;

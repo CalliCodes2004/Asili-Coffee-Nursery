@@ -15,7 +15,9 @@ import {
     collection,
     getDocs,
     doc,
-    updateDoc
+    updateDoc,
+    getDoc,
+    runTransaction
 } from
     "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -333,14 +335,13 @@ ordersTableBody.addEventListener("change", async (event) => {
     const newStatus =
         select.value;
 
+
     try {
 
-        await updateDoc(
-            doc(db, "orders", orderId),
-            {
-                status: newStatus
-            }
-        );
+        await updateInventoryForOrder(
+    orderId,
+    newStatus
+);
 
         console.log(
             `Order ${orderId} updated to ${newStatus}`
@@ -601,3 +602,313 @@ orderDetailsContent.addEventListener("click", (event) => {
         `tel:+${phone}`;
 
 });
+
+// ================================
+// UPDATE INVENTORY FOR ORDER
+// ================================
+
+async function updateInventoryForOrder(
+    orderId,
+    newStatus
+) {
+
+    newStatus =
+    String(newStatus)
+        .trim()
+        .toLowerCase();
+
+    const orderReference =
+        doc(db, "orders", orderId);
+
+
+    await runTransaction(
+        db,
+        async (transaction) => {
+
+            const orderSnapshot =
+                await transaction.get(
+                    orderReference
+                );
+
+
+            if (!orderSnapshot.exists()) {
+
+                throw new Error(
+                    "Order does not exist."
+                );
+
+            }
+
+
+            const order =
+                orderSnapshot.data();
+
+
+            const quantity =
+                Number(order.quantity || 0);
+
+
+            if (quantity <= 0) {
+
+                throw new Error(
+                    "Invalid order quantity."
+                );
+
+            }
+
+
+            const inventoryId =
+                getInventoryId(
+                    order.variety
+                );
+
+
+            if (!inventoryId) {
+
+                throw new Error(
+                    `No inventory record found for ${order.variety}.`
+                );
+
+            }
+
+
+            const inventoryReference =
+                doc(
+                    db,
+                    "inventory",
+                    inventoryId
+                );
+
+
+            const inventorySnapshot =
+                await transaction.get(
+                    inventoryReference
+                );
+
+
+            if (!inventorySnapshot.exists()) {
+
+                throw new Error(
+                    "Inventory record does not exist."
+                );
+
+            }
+
+
+            const inventory =
+                inventorySnapshot.data();
+
+
+            const available =
+                Number(inventory.available || 0);
+
+            const reserved =
+                Number(inventory.reserved || 0);
+
+            const sold =
+                Number(inventory.sold || 0);
+
+
+            const currentStatus =
+    String(order.status || "pending")
+        .trim()
+        .toLowerCase();
+
+        
+            // ================================
+// VALIDATE STATUS TRANSITION
+// ================================
+
+const allowedTransitions = {
+
+    pending: [
+        "confirmed",
+        "cancelled"
+    ],
+
+    confirmed: [
+        "preparing",
+        "cancelled"
+    ],
+
+    preparing: [
+        "ready",
+        "cancelled"
+    ],
+
+    ready: [
+        "completed",
+        "cancelled"
+    ],
+
+    completed: [],
+
+    cancelled: []
+
+};
+
+
+if (newStatus === currentStatus) {
+    return;
+}
+
+
+const allowedNextStatuses =
+    allowedTransitions[currentStatus] || [];
+
+
+if (!allowedNextStatuses.includes(newStatus)) {
+
+    throw new Error(
+        `Invalid order status change: ${currentStatus} → ${newStatus}.`
+    );
+
+}
+
+
+            // ================================
+            // CONFIRMED
+            // ================================
+
+            if (
+                newStatus === "confirmed" &&
+                currentStatus === "pending"
+            ) {
+
+                if (available < quantity) {
+
+                    throw new Error(
+                        `Not enough ${order.variety} stock available.`
+                    );
+
+                }
+
+
+                transaction.update(
+                    inventoryReference,
+                    {
+                        available:
+                            available - quantity,
+
+                        reserved:
+                            reserved + quantity
+                    }
+                );
+
+            }
+
+
+            // ================================
+            // COMPLETED
+            // ================================
+
+            if (
+                newStatus === "completed" &&
+                currentStatus === "ready"
+            ) {
+
+                if (reserved < quantity) {
+
+                    throw new Error(
+                        "Reserved inventory is insufficient."
+                    );
+
+                }
+
+
+                transaction.update(
+                    inventoryReference,
+                    {
+                        reserved:
+                            reserved - quantity,
+
+                        sold:
+                            sold + quantity
+                    }
+                );
+
+            }
+
+
+            // ================================
+            // CANCELLED
+            // ================================
+
+            if (
+                newStatus === "cancelled" &&
+                (
+                    currentStatus === "confirmed" ||
+                    currentStatus === "preparing" ||
+                    currentStatus === "ready"
+                )
+            ) {
+
+                if (reserved < quantity) {
+
+                    throw new Error(
+                        "Reserved inventory is insufficient."
+                    );
+
+                }
+
+
+                transaction.update(
+                    inventoryReference,
+                    {
+                        reserved:
+                            reserved - quantity,
+
+                        available:
+                            available + quantity
+                    }
+                );
+
+            }
+
+
+            transaction.update(
+                orderReference,
+                {
+                    status: newStatus
+                }
+            );
+
+        }
+    );
+
+}
+
+function getInventoryId(variety) {
+
+    const normalized =
+        String(variety || "")
+            .trim()
+            .toLowerCase();
+
+
+    const inventoryMap = {
+
+        "batian":
+            "batian",
+
+        "ruiru 11":
+            "ruiru-11",
+
+        "ruiru-11":
+            "ruiru-11",
+
+        "sl34":
+            "sl34",
+
+        "sl28":
+            "sl28",
+
+        "k7":
+            "k7"
+
+    };
+
+
+    return inventoryMap[normalized] || null;
+
+}

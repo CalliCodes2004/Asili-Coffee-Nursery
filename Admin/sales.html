@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sales | Asili Coffee Nursery</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #f5f7f5;
+            color: #1b1b1b;
+        }
+
+
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .admin-header {
+            min-height: 70px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: #0B5D1E;
+            color: #ffffff;
+        }
+
+
+        .admin-logo h1 {
+            font-size: 1.5rem;
+        }
+
+
+        .admin-logo span {
+            font-weight: normal;
+            opacity: 0.85;
+        }
+
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .dashboard-link {
+            text-decoration: none;
+
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            background: transparent;
+            color: #ffffff;
+
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            font-weight: 600;
+        }
+
+
+        .dashboard-link:hover {
+            background: #ffffff;
+            color: #0B5D1E;
+        }
+
+
+        .logout-btn {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+
+            background: transparent;
+            color: #ffffff;
+
+            padding: 9px 18px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+
+        .logout-btn:hover {
+            background: #ffffff;
+            color: #0B5D1E;
+        }
+
+
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .sales-page {
+            width: 90%;
+            max-width: 1200px;
+
+            margin: 40px auto;
+        }
+
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+
+        .page-heading h2 {
+            font-size: 2rem;
+
+            margin-bottom: 8px;
+        }
+
+
+        .page-heading p {
+            color: #666;
+
+            line-height: 1.5;
+        }
+
+        /* ================================
+   SALES PERIOD FILTER
+================================= */
+
+.sales-period-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+
+.sales-period-button {
+    border: 1px solid #d9e1d9;
+    background: #ffffff;
+    color: #333333;
+
+    padding: 10px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.sales-period-button:hover {
+    border-color: #0B5D1E;
+    color: #0B5D1E;
+}
+
+
+.sales-period-button.active {
+    background: #0B5D1E;
+    border-color: #0B5D1E;
+    color: #ffffff;
+}
+
+
+
+        /* ================================
+           SALES SUMMARY
+        ================================= */
+
+        .sales-summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .summary-card {
+            background: #ffffff;
+
+            padding: 22px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+
+        .summary-card h3 {
+            color: #666;
+
+            font-size: 0.9rem;
+
+            margin-bottom: 10px;
+        }
+
+
+        .summary-value {
+            color: #0B5D1E;
+
+            font-size: 1.8rem;
+
+            font-weight: 700;
+        }
+
+
+
+        /* ================================
+           SECTION CARD
+        ================================= */
+
+        .sales-section {
+            background: #ffffff;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.06);
+
+            margin-bottom: 30px;
+        }
+
+
+        .sales-section h3 {
+            color: #0B5D1E;
+
+            margin-bottom: 20px;
+        }
+
+
+
+        /* ================================
+           VARIETY SALES
+        ================================= */
+
+        .variety-sales-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .variety-card {
+            padding: 18px;
+
+            border: 1px solid #e4e9e4;
+
+            border-radius: 10px;
+
+            background: #f8faf8;
+        }
+
+
+        .variety-card h4 {
+            margin-bottom: 10px;
+        }
+
+
+        .variety-card p {
+            color: #666;
+
+            font-size: 0.9rem;
+
+            margin-top: 5px;
+        }
+
+        /* ================================
+   SALES TREND CHART
+================================= */
+
+.sales-chart-container {
+    position: relative;
+
+    width: 100%;
+    height: 380px;
+}
+
+
+@media (max-width: 600px) {
+
+    .sales-chart-container {
+        height: 300px;
+    }
+
+}
+
+
+
+        /* ================================
+           RECENT SALES TABLE
+        ================================= */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+
+        .sales-table {
+            width: 100%;
+
+            min-width: 850px;
+
+            border-collapse: collapse;
+        }
+
+
+        .sales-table th,
+        .sales-table td {
+            padding: 14px;
+
+            text-align: left;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+
+        .sales-table th {
+            background: #f8faf8;
+
+            color: #0B5D1E;
+
+            font-size: 0.9rem;
+        }
+
+
+        .sales-table td {
+            font-size: 0.92rem;
+        }
+
+
+        .empty-state {
+            text-align: center !important;
+
+            color: #777;
+
+            padding: 35px !important;
+        }
+
+        /* ================================
+   SALES PERFORMANCE
+================================= */
+
+.sales-insights-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+.sales-insight-card {
+    padding: 20px;
+
+    border: 1px solid #e4e9e4;
+
+    border-radius: 10px;
+
+    background: #f8faf8;
+}
+
+
+.insight-label {
+    display: block;
+
+    color: #666666;
+
+    font-size: 0.85rem;
+
+    margin-bottom: 10px;
+}
+
+
+.sales-insight-card strong {
+    display: block;
+
+    color: #0B5D1E;
+
+    font-size: 1.25rem;
+
+    margin-bottom: 8px;
+}
+
+
+.sales-insight-card p {
+    color: #666666;
+
+    font-size: 0.9rem;
+
+    line-height: 1.4;
+}
+
+
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 1000px) {
+
+            .variety-sales-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .sales-summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        .sales-insights-grid {
+    grid-template-columns:
+        repeat(2, 1fr);
+}
+
+
+        @media (max-width: 600px) {
+
+            .admin-header {
+                padding: 12px 5%;
+
+                flex-direction: column;
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+
+
+            .header-actions {
+                width: 100%;
+            }
+
+
+            .dashboard-link,
+            .logout-btn {
+                flex: 1;
+
+                text-align: center;
+            }
+
+
+            .sales-page {
+                width: 92%;
+
+                margin-top: 30px;
+            }
+
+
+            .page-heading h2 {
+                font-size: 1.6rem;
+            }
+
+
+            .sales-summary {
+                grid-template-columns: 1fr;
+            }
+
+
+            .variety-sales-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================
+         ADMIN HEADER
+    ================================= -->
+
+    <header class="admin-header">
+
+        <div class="admin-logo">
+
+            <h1>
+                ASILI
+                <span>Coffee Nursery</span>
+            </h1>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <a
+                href="dashboard.html"
+                class="dashboard-link"
+            >
+                Dashboard
+            </a>
+
+
+            <button
+                id="logoutButton"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================================
+         SALES
+    ================================= -->
+
+    <main class="sales-page">
+
+
+        <section class="page-heading">
+
+            <h2>
+                Sales Analytics
+            </h2>
+
+            <p>
+                Track completed sales, seedlings sold
+                and revenue performance.
+            </p>
+
+        </section>
+
+        <!-- ================================
+     SALES PERIOD FILTER
+================================= -->
+
+<section class="sales-period-filter">
+
+    <button
+        type="button"
+        class="sales-period-button active"
+        data-sales-period="all"
+    >
+        All Time
+    </button>
+
+    <button
+        type="button"
+        class="sales-period-button"
+        data-sales-period="today"
+    >
+        Today
+    </button>
+
+    <button
+        type="button"
+        class="sales-period-button"
+        data-sales-period="week"
+    >
+        This Week
+    </button>
+
+    <button
+        type="button"
+        class="sales-period-button"
+        data-sales-period="month"
+    >
+        This Month
+    </button>
+
+    <button
+        type="button"
+        class="sales-period-button"
+        data-sales-period="year"
+    >
+        This Year
+    </button>
+
+</section>
+
+
+
+        <!-- ================================
+             SALES SUMMARY
+        ================================= -->
+
+        <section class="sales-summary">
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Sales Revenue
+                </h3>
+
+                <p
+                    id="salesRevenue"
+                    class="summary-value"
+                >
+                    KSh 0
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Seedlings Sold
+                </h3>
+
+                <p
+                    id="seedlingsSold"
+                    class="summary-value"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Completed Orders
+                </h3>
+
+                <p
+                    id="completedSalesOrders"
+                    class="summary-value"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h3>
+                    Average Order Value
+                </h3>
+
+                <p
+                    id="averageOrderValue"
+                    class="summary-value"
+                >
+                    KSh 0
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================
+             SALES BY VARIETY
+        ================================= -->
+
+        <section class="sales-section">
+
+            <h3>
+                Sales by Variety
+            </h3>
+
+
+            <div
+                id="varietySalesGrid"
+                class="variety-sales-grid"
+            >
+
+                <div class="variety-card">
+
+                    <h4>
+                        Batian
+                    </h4>
+
+                    <p>
+                        Sales data will appear here.
+                    </p>
+
+                </div>
+
+
+                <div class="variety-card">
+
+                    <h4>
+                        Ruiru 11
+                    </h4>
+
+                    <p>
+                        Sales data will appear here.
+                    </p>
+
+                </div>
+
+
+                <div class="variety-card">
+
+                    <h4>
+                        SL34
+                    </h4>
+
+                    <p>
+                        Sales data will appear here.
+                    </p>
+
+                </div>
+
+
+                <div class="variety-card">
+
+                    <h4>
+                        SL28
+                    </h4>
+
+                    <p>
+                        Sales data will appear here.
+                    </p>
+
+                </div>
+
+
+                <div class="variety-card">
+
+                    <h4>
+                        K7
+                    </h4>
+
+                    <p>
+                        Sales data will appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ================================
+     SALES TREND
+================================= -->
+
+<section class="sales-section">
+
+    <h3>
+        Revenue Trend
+    </h3>
+
+    <div class="sales-chart-container">
+
+        <canvas id="salesTrendChart"></canvas>
+
+    </div>
+
+</section>
+
+<!-- ================================
+     SALES INSIGHTS
+================================= -->
+
+<section class="sales-section">
+
+    <h3>
+        Sales Performance
+    </h3>
+
+    <div class="sales-insights-grid">
+
+        <div class="sales-insight-card">
+
+            <span class="insight-label">
+                Top-Selling Variety
+            </span>
+
+            <strong id="topSellingVariety">
+                -
+            </strong>
+
+            <p id="topSellingVarietyDetails">
+                No sales data
+            </p>
+
+        </div>
+
+
+        <div class="sales-insight-card">
+
+            <span class="insight-label">
+                Highest-Revenue Variety
+            </span>
+
+            <strong id="topRevenueVariety">
+                -
+            </strong>
+
+            <p id="topRevenueVarietyDetails">
+                No sales data
+            </p>
+
+        </div>
+
+
+        <div class="sales-insight-card">
+
+            <span class="insight-label">
+                Largest Completed Sale
+            </span>
+
+            <strong id="largestSale">
+                KSh 0
+            </strong>
+
+            <p id="largestSaleDetails">
+                No sales data
+            </p>
+
+        </div>
+
+
+        <div class="sales-insight-card">
+
+            <span class="insight-label">
+                Top Customer
+            </span>
+
+            <strong id="topSalesCustomer">
+                -
+            </strong>
+
+            <p id="topSalesCustomerDetails">
+                No sales data
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+        <!-- ================================
+             RECENT SALES
+        ================================= -->
+
+        <section class="sales-section">
+
+            <h3>
+                Recent Completed Sales
+            </h3>
+
+
+            <div class="table-container">
+
+                <table class="sales-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Phone
+                            </th>
+
+                            <th>
+                                Variety
+                            </th>
+
+                            <th>
+                                Quantity
+                            </th>
+
+                            <th>
+                                Revenue
+                            </th>
+
+                            <th>
+                                Location
+                            </th>
+
+                            <th>
+                                Method
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="recentSalesTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="empty-state"
+                            >
+                                Completed sales will appear here.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         FIREBASE
+    ================================= -->
+
+    <script
+        type="module"
+        src="../firebase-config.js"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script
+    type="module"
+    src="sales.js"
+></script>
+
+
+</body>
+
+</html>

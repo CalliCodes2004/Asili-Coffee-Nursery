@@ -17,7 +17,8 @@ import {
     doc,
     updateDoc,
     getDoc,
-    runTransaction
+    runTransaction,
+    serverTimestamp
 } from
     "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
@@ -1175,13 +1176,26 @@ async function updateInventoryForOrder(
             }
 
 
-            transaction.update(
-                orderReference,
-                {
-                    status: newStatus
-                }
-            );
+            const orderUpdate = {
+    status: newStatus
+};
 
+
+if (
+    newStatus === "completed" &&
+    currentStatus === "ready"
+) {
+
+    orderUpdate.completedAt =
+        serverTimestamp();
+
+}
+
+
+transaction.update(
+    orderReference,
+    orderUpdate
+);
         }
     );
 
